@@ -1,4 +1,4 @@
-# Super Glitch Bros
+# Super Fire Bros
 
 ##### Members: Yiling(Samuel) Zhu, Yiwei(Gilbert) Guo, YongLi(Kyle) Liang
 #
