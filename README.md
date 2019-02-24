@@ -26,10 +26,13 @@
 - Be able to login with google and facebook.
 
 ## Technology used
-- Socket.io for backend communication
-- Frontend Framework: AngularJS
-- MongoDB
-- CSS Framework: NES.CSS
+- Socket.io -  Frontend and backend real time communication and stream
+- Express - Backend framework
+- AngularJS - Frontend framework
+- MongoDB - Server Database
+- NES.CSS - CSS framework
+- ApiDoc for generating api Documentation
+- Mailgun for register email validation
 - Google and Facebook Authentication APIs and tokens
 
 ## Challenges
