@@ -41,3 +41,7 @@
 - Deliver the game using canvas
 - Use Socket.io to deliver real time communication for the game players and spectators
 - Secure the whole application to ensure No bad, forbidden, cheating operations from users 
+
+
+###dev-guide
+- install mongodb: https://treehouse.github.io/installation-guides/mac/mongo-mac.html
