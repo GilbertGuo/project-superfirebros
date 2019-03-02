@@ -24,7 +24,7 @@ export class UserService {
   }
 
   register(user: User) {
-    return this.http.post(`/users/register`, user, {}).subscribe(
+    return this.http.post(`${this.url}/users/register`, user, {}).subscribe(
       (data) => console.log('Registered in successfully')
     );
   }

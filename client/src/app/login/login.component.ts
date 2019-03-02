@@ -11,7 +11,7 @@ import {User} from "../user.model";
 export class LoginComponent implements OnInit {
 
   // loginStatus: boolean = false;
-  users: Object;
+  // users: Object;
   loginForm: FormGroup;
   submitted = false;
   success = false;
@@ -24,10 +24,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(user => {
-      this.users = user;
-      console.log(this.users);
-    })
+    // this.userService.getUsers().subscribe(user => {
+    //   this.users = user;
+    //   console.log(this.users);
+    // })
   }
 
   onSubmit() {
@@ -42,12 +42,6 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.userService.login();
-  }
-
-  register() {
-    let newUser = new User(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
-    this.userService.register(newUser);
-    console.log('registered');
   }
 
 }

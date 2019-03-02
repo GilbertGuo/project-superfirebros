@@ -25,7 +25,8 @@ let userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    createdDate: { type: Date, default: Date.now }
 });
 
 

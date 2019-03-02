@@ -22,8 +22,6 @@ app.use(function (req, res, next){
     logger.info("HTTP request", req.method, req.url, req.body);
 });
 
-// app.use('/users', userApi);
-
 server.listen(PORT, function (err) {
     if (err) console.log(err);
     else logger.info("HTTPS server on http://localhost:%s", PORT);
