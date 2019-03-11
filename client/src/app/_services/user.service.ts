@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../user.model";
 
@@ -7,12 +7,14 @@ import {User} from "../user.model";
 })
 export class UserService {
 
-  url = "http://localhost:9000";
+  private userProfile = undefined;
+  private url = "http://localhost:9000";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
-  getUsers() {
-    return this.http.get('https://reqres.in/api/users')
+  getProfile() {
+    return this.userProfile;
   }
 
   getAll() {
@@ -29,15 +31,28 @@ export class UserService {
     );
   }
 
-  delete(id: number) {
-    return this.http.delete(`${this.url}/users/` + id);
+  logout() {
+    this.http.get(`${this.url}/users/logout`).subscribe((data) => {
+      if(data) {
+        this.userProfile = undefined;
+      }
+    });
+    return this.isLoggedin();
   }
 
-  login() {
-    console.log("123");
-    return this.http.get(`${this.url}/users/`).subscribe(
-      (data) => console.log('Logged in successfully')
+  login(user: User) {
+    return this.http.post(`${this.url}/users/`, user, {}).subscribe(
+      (profile) => {
+        this.userProfile = profile;
+      }
     );
+  }
+
+  isLoggedin() {
+    if(this.userProfile) {
+      return true;
+    }
+    return false;
   }
 
 }

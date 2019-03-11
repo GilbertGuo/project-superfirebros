@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../_services/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../user.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -11,12 +12,12 @@ import {User} from "../user.model";
 export class LoginComponent implements OnInit {
 
   // loginStatus: boolean = false;
-  users: Object;
+  // users: Object;
   loginForm: FormGroup;
   submitted = false;
   success = false;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router:Router) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -24,10 +25,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.userService.getUsers().subscribe(user => {
-      this.users = user;
-      console.log(this.users);
-    })
+    this.toProfile();
   }
 
   onSubmit() {
@@ -41,13 +39,22 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.userService.login();
+    if (this.success) {
+      let user = new User(
+        this.loginForm.controls.username.value,
+        this.loginForm.controls.password.value,
+        ""
+      );
+      this.userService.login(user);
+      console.log('yes you are in.');
+      this.toProfile();
+    }
   }
 
-  register() {
-    let newUser = new User(this.loginForm.controls.username.value, this.loginForm.controls.password.value);
-    this.userService.register(newUser);
-    console.log('registered');
+  toProfile() {
+    if(this.userService.isLoggedin()) {
+      this.router.navigate(['/profile']);
+    }
   }
 
 }
