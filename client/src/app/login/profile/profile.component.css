@@ -1,0 +1,26 @@
+#profile {
+  margin-top: 30px;
+  margin-right: auto;
+  margin-left: auto;
+  width: 80%;
+  height: 200px;
+}
+
+#profile p{
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+#nav {
+  margin-top: 30px;
+  margin-bottom: 5px;
+}
+
+#nav button {
+  font-size: 10px;
+  margin-top: 1px;
+  margin-right: 2px;
+  position:absolute;
+  top:0;
+  right:0;
+}

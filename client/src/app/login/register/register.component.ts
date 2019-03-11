@@ -10,16 +10,15 @@ import {min} from "rxjs/operators";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  minlength = 3
   submitted = false;
   success = false;
   registerForm: FormGroup;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(this.minlength)]],
+      username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(this.minlength)]]
+      password: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
