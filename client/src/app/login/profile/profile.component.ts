@@ -15,17 +15,23 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    let profile = this.userService.getProfile();
-    if (profile) {
-      this.playerName = profile.name;
-      this.playerEmail = profile.email;
-    }
+    let profile = this.userService.getProfile().subscribe((profile) => {
+      if(profile && profile.name && profile.email) {
+        this.playerName = profile.name;
+        this.playerEmail = profile.email;
+      } else {
+        this.toHome();
+      }
+    })
   }
 
   logout() {
-    if(this.userService.logout()) {
-      this.router.navigate(['/login']);
-    }
+    this.userService.logout().subscribe((res) => {
+      this.toHome();
+    })
   }
 
+  toHome() {
+    this.router.navigate(['/']);
+  }
 }

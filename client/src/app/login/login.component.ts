@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   success = false;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router:Router) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -31,10 +31,11 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if(this.loginForm.invalid) {
+    if (this.loginForm.invalid) {
       return;
     } else {
       this.success = true;
+      this.login();
     }
   }
 
@@ -45,16 +46,19 @@ export class LoginComponent implements OnInit {
         this.loginForm.controls.password.value,
         ""
       );
-      this.userService.login(user);
-      console.log('yes you are in.');
-      this.toProfile();
+      this.userService.login(user).subscribe((profile) => {
+        console.log("yes, you are in.");
+        this.toProfile();
+      })
     }
   }
 
   toProfile() {
-    if(this.userService.isLoggedin()) {
-      this.router.navigate(['/profile']);
-    }
+    this.userService.isLoggedin().subscribe((res) => {
+      if (res) {
+        this.router.navigate(['/profile']);
+      }
+    });
   }
 
 }

@@ -22,12 +22,12 @@
           Username is required.
         </div>
       </div>
-      <button type="submit" class="nes-btn is-success" (click)="login()">Login</button>
+      <button type="submit" class="nes-btn is-success">Login</button>
       <button type="button" class="nes-btn is-primary" routerLink="/register">Register</button>
 
-      <div *ngIf="submitted && success" class="result">
-        <strong>You are logged in. name: {{loginForm.controls.username.value}}</strong>
-      </div>
+      <!--<div *ngIf="submitted && success" class="result">-->
+        <!--<strong>You are logged in. name: {{loginForm.controls.username.value}}</strong>-->
+      <!--</div>-->
     </div>
   </form>
 </div>

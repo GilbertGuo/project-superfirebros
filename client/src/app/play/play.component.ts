@@ -48,8 +48,6 @@ export class PlayComponent implements AfterViewInit {
     window.addEventListener('keydown', function (e) {
 
       keycode=e.key;
-      console.log(keycode);
-
       if(keycode==" "){
         countspace++;
         ctx.clearRect(x,y,30,30);

@@ -37,7 +37,6 @@ router.post('/register', function (req, res, next) {
             } else {
                 logger.info("new user registered: ", user);
                 req.session.userId = user._id;
-                // return res.redirect('/profile');
             }
         });
 
@@ -62,7 +61,7 @@ router.post('/', function (req, res, next) {
             } else {
                 logger.info("user login success: ", user);
                 req.session.userId = user._id;
-                // return res.redirect('/profile');
+                req.
                 User.findById(req.session.userId).exec(function (err, user) {
                     if (err) {
                         return next(err);
@@ -75,15 +74,15 @@ router.post('/', function (req, res, next) {
     }
 });
 
-// router.get('/profile', middleware.requiresLogin, function (req, res, next) {
-//     User.findById(req.session.userId).exec(function (err, user) {
-//         if (err) {
-//             return next(err);
-//         } else {
-//             res.json({_id: user._id, name: user.username, email: user.email});
-//         }
-//     });
-// });
+router.get('/profile', middleware.requiresLogin, function (req, res, next) {
+    User.findById(req.session.userId).exec(function (err, user) {
+        if (err) {
+            return next(err);
+        } else {
+            res.json({_id: user._id, name: user.username, email: user.email});
+        }
+    });
+});
 
 router.get('/logout', function(req, res, next) {
     if (req.session) {

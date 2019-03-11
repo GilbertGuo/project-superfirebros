@@ -12,6 +12,7 @@ import {PlayComponent} from './play/play.component';
 import {SpectateComponent} from './spectate/spectate.component';
 import { SettingComponent } from './setting/setting.component';
 import { RegisterComponent } from './login/register/register.component';
+import {ProfileComponent} from "./login/profile/profile.component";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RegisterComponent } from './login/register/register.component';
     PlayComponent,
     SpectateComponent,
     SettingComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
