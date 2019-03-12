@@ -1,0 +1,34 @@
+.htp {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin: 0;
+  padding: 25px;
+  text-align: center;
+}
+
+li {
+  width: 20%;
+  margin: auto;
+}
+
+.instruction {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+}
+
+.credits {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+}
+
+.urls {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  text-align: center;
+}
