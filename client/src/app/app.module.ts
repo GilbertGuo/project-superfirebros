@@ -14,7 +14,8 @@ import {NavComponent} from './nav/nav.component';
 import {PlayComponent} from './play/play.component';
 import {SpectateComponent} from './spectate/spectate.component';
 import { SettingComponent } from './setting/setting.component';
-import {timeout} from "rxjs/operators";
+import {RegisterComponent} from "./login/register/register.component";
+import {ProfileComponent} from "./login/profile/profile.component";
 
 @NgModule({
   declarations: [

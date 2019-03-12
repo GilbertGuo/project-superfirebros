@@ -3,6 +3,7 @@ import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Route
 import {Observable} from 'rxjs';
 import {UserService} from "./_services/user.service";
 import {tap} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ import {tap} from "rxjs/operators";
 export class AuthenticateGuard implements CanActivate {
 
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, private toastr:ToastrService) {
   }
 
   canActivate(
@@ -20,15 +21,11 @@ export class AuthenticateGuard implements CanActivate {
       if(res === true) {
         return true;
       } else {
+        this.toastr.warning("You idiot need to login first.");
         this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
         return false;
       }
     }));
-    // if(this.userService.isLoggedin()) {
-    //   return true;
-    // }
-    // this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-    // return false;
   }
 
 }
