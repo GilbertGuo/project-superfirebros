@@ -61,7 +61,6 @@ router.post('/', function (req, res, next) {
             } else {
                 logger.info("user login success: ", user);
                 req.session.userId = user._id;
-                req.
                 User.findById(req.session.userId).exec(function (err, user) {
                     if (err) {
                         return next(err);

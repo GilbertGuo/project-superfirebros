@@ -6,19 +6,22 @@ import {PlayComponent} from "./play/play.component";
 import {SpectateComponent} from "./spectate/spectate.component";
 import {RegisterComponent} from "./login/register/register.component";
 import {ProfileComponent} from "./login/profile/profile.component";
+import {UserService} from "./_services/user.service";
+import {AuthenticateGuard} from "./authenticate.guard";
 
 const routes: Routes = [
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent, canActivate:[AuthenticateGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'play', component: PlayComponent},
-  {path: 'spectate', component:SpectateComponent},
+  {path: 'play', component: PlayComponent, canActivate:[AuthenticateGuard]},
+  {path: 'spectate', component:SpectateComponent,canActivate:[AuthenticateGuard]},
   {path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [UserService, AuthenticateGuard]
 })
 export class AppRoutingModule {
 }
