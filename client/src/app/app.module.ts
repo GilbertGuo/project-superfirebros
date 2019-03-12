@@ -3,6 +3,9 @@ import {NgModule} from '@angular/core';
 import {HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
@@ -11,7 +14,6 @@ import {NavComponent} from './nav/nav.component';
 import {PlayComponent} from './play/play.component';
 import {SpectateComponent} from './spectate/spectate.component';
 import { SettingComponent } from './setting/setting.component';
-import { RegisterComponent } from './login/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,14 @@ import { RegisterComponent } from './login/register/register.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
