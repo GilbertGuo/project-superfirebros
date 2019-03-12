@@ -8,9 +8,16 @@ import {UserService} from "../_services/user.service";
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  // constructor() { }
 
   ngOnInit() {
+  }
+
+  constructor(private toastr: ToastrService) {}
+
+  showSuccess() {
+    this.toastr.error('About');
+    // this.toastr.success('About', '');
   }
 
 }
