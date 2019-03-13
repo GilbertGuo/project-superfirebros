@@ -16,7 +16,9 @@ import {SpectateComponent} from './spectate/spectate.component';
 import { SettingComponent } from './setting/setting.component';
 import {RegisterComponent} from "./login/register/register.component";
 import {ProfileComponent} from "./login/profile/profile.component";
+import {SocketIoModule} from "ngx-socket-io";
 
+const config = {url: 'http://localhost:4200', option:{}};
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,6 +37,7 @@ import {ProfileComponent} from "./login/profile/profile.component";
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    // SocketIoModule.forRoot(config),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
