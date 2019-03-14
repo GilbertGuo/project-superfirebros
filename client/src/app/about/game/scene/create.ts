@@ -8,7 +8,8 @@ function delay(ms: number) {
 
 export function create() {
   this.bullets = [];
-  this.cameras.main.setBackgroundColor('#3f9cff');
+  // this.cameras.main.setBackgroundColor('#3f9cff');
+  this.add.image(500,210,'background');
 
   let self = this;
   self.coin = {
@@ -41,6 +42,12 @@ export function create() {
     });
   });
 
+  this.socket.on('flipX', function (playerInfo) {
+    self.otherPlayers.getChildren().forEach(function (otherPlayer) {
+      if (playerInfo.playerId === otherPlayer.playerId) otherPlayer.flipX = playerInfo.flipX;
+    });
+  });
+
   this.socket.on('movement', function (playerInfo) {
     self.otherPlayers.getChildren().forEach(function (otherPlayer) {
       if (playerInfo.playerId === otherPlayer.playerId) otherPlayer.setPosition(playerInfo.x, playerInfo.y);
@@ -50,13 +57,13 @@ export function create() {
 
   this.cursors = this.input.keyboard.createCursorKeys();
 
-  this.blueScoreText = this.add.text(16, 16, '', {fontSize: '32px', fill: '#1224ff'});
-  this.redScoreText = this.add.text(300, 16, '', {fontSize: '32px', fill: '#ff1c0a'});
+  this.whiteScoreText = this.add.text(16, 16, '', {fontSize: '32px', fill: '#FFFAFA'});
+  this.yellowScoreText = this.add.text(300, 16, '', {fontSize: '32px', fill: '#FFFF00'});
 
 
   this.socket.on('updateScore', function (scores) {
-    self.blueScoreText.setText('Blue: ' + scores.blue);
-    self.redScoreText.setText('Red: ' + scores.red);
+    self.whiteScoreText.setText('White: ' + scores.white);
+    self.yellowScoreText.setText('Yellow: ' + scores.yellow);
   });
 
   this.socket.on('coin', function (coin, key) {
@@ -71,7 +78,7 @@ export function create() {
     // If there's not enough bullets on the client, create them
     for (let i = 0; i < update_b.length; i++) {
       if (!self.bullets[i]) {
-        self.bullets[i] = self.physics.add.sprite(update_b[i].x, update_b[i].y, 'bullet').setDisplaySize(10, 10);
+        self.bullets[i] = self.physics.add.sprite(update_b[i].x, update_b[i].y, 'bullet').setDisplaySize(15, 15);
       } else {
         //Otherwise, just update it!
         self.bullets[i].x = update_b[i].x;

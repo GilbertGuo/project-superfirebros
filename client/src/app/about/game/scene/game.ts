@@ -1,10 +1,10 @@
 export function addPlayer(self, playerInfo) {
   self.bro = self.physics.add.sprite(playerInfo.x, playerInfo.y, 'bro').setOrigin(0.5, 0.5).setDisplaySize(53, 40);
   self.bro.setBounce(0.2);
-  if (playerInfo.team === 'blue') {
-    self.bro.setTint(0x0000ff);
+  if (playerInfo.team === 'white') {
+    self.bro.setTint(0xFFFAFA);
   } else {
-    self.bro.setTint(0xff0000);
+    self.bro.setTint(0xFFFF00);
   }
   self.bro.setDrag(100);
   self.bro.setMaxVelocity(200);
@@ -14,12 +14,12 @@ export function addPlayer(self, playerInfo) {
 }
 
 export function addOtherPlayers(self, playerInfo) {
-  let otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, 'otherPlayer').setOrigin(0.5, 0.5).setDisplaySize(53, 40);
-  if (playerInfo.team === 'blue') {
-    otherPlayer.setTint(0x0000ff);
+  self.otherPlayer = self.add.sprite(playerInfo.x, playerInfo.y, 'otherPlayer').setOrigin(0.5, 0.5).setDisplaySize(53, 40);
+  if (playerInfo.team === 'white') {
+    self.otherPlayer.setTint(0xFFFAFA);
   } else {
-    otherPlayer.setTint(0xff0000);
+    self.otherPlayer.setTint(0xFFFF00);
   }
-  otherPlayer.playerId = playerInfo.playerId;
-  self.otherPlayers.add(otherPlayer);
+  self.otherPlayer.playerId = playerInfo.playerId;
+  self.otherPlayers.add(self.otherPlayer);
 }

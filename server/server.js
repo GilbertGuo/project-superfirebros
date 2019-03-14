@@ -27,8 +27,8 @@ let coin = {
     y: 0,
 };
 let scores = {
-    blue: 0,
-    red: 0
+    white: 0,
+    yellow: 0
 };
 let lastPlayerTeam = true;
 let bullets = [];
@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
         x: Math.floor(Math.random() * 700) + 50,
         y: Math.floor(Math.random() * 500) + 50,
         playerId: socket.id,
-        team: (lastPlayerTeam) ? 'red' : 'blue'
+        team: (lastPlayerTeam) ? 'yellow' : 'white'
     };
     if(lastPlayerTeam === true) {
         lastPlayerTeam = false;
@@ -72,11 +72,16 @@ io.on('connection', function (socket) {
         socket.broadcast.emit('movement', players[socket.id]);
     });
 
+    socket.on('flip', function (flipX) {
+        players[socket.id].flipX = flipX.angle;
+        socket.broadcast.emit('flipX', players[socket.id]);
+    });
+
     socket.on('collectCoin', function (i) {
-        if (players[socket.id].team === 'red') {
-            scores.red += 5;
+        if (players[socket.id].team === 'yellow') {
+            scores.yellow += 5;
         } else {
-            scores.blue += 5;
+            scores.white += 5;
         }
         generateCoin();
         io.emit('coin', coin, i);
@@ -103,12 +108,14 @@ function ServerGameLoop() {
                     // And your own bullet shouldn't kill you
                     let dx = players[id].x - bullet.x;
                     let dy = players[id].y - bullet.y;
-                    if (Math.sqrt(dx * dx + dy * dy) < 40) {
+                    if (Math.sqrt(dx * dx + dy * dy) < 25) {
+                        bullet.x = -20;
+                        bullet.y = -20;
                         io.emit('hitted', id);
-                        if (players[id].team === 'red') {
-                            scores.blue += 1;
+                        if (players[id].team === 'yellow') {
+                            scores.white += 1;
                         } else {
-                            scores.red += 1;
+                            scores.yellow += 1;
                         }
                         io.emit('updateScore', scores);
                     }

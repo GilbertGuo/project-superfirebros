@@ -19,7 +19,7 @@ export class AboutComponent implements OnInit, OnDestroy{
   public readonly gameConfig: GameConfig = {
     type: Phaser.AUTO,
     width: 1000,
-    height: 600,
+    height: 430,
     physics: {
       default: 'arcade',
       arcade: {
