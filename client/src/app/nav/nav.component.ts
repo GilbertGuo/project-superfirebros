@@ -19,7 +19,7 @@ export class NavComponent implements OnInit {
 
 
   destroyGame(component: String) {
-    this.gameService.destoryGame();
+    // this.gameService.destoryGame();
 
   }
 }

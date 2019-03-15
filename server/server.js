@@ -67,6 +67,7 @@ io.on('connection', function (socket) {
     socket.broadcast.emit('newPlayer', players[socket.id]);
 
     socket.on('disconnect', function () {
+        connection--;
         logger.info('user disconnected: ', socket.id);
         delete players[socket.id];
         io.emit('disconnect', socket.id);
