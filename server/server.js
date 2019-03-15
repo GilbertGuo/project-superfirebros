@@ -30,24 +30,30 @@ let scores = {
     white: 0,
     yellow: 0
 };
+let connection = 0;
 let lastPlayerTeam = true;
 let bullets = [];
 
 function generateCoin() {
-    coin.x = Math.floor(Math.random() * 700) + 50;
-    coin.y = Math.floor(Math.random() * 500) + 50;
+    coin.x = Math.floor(Math.random() * 500) + 50;
+    coin.y = Math.floor(Math.random() * 400) + 50;
 }
 
 io.on('connection', function (socket) {
     logger.info('a user connected: ', socket.id);
-    // create a new player and add it to our players object
+    if(connection === 0) {
+        scores.white = 0;
+        scores.yellow = 0;
+    }
+    // new player joined
+    connection++;
     players[socket.id] = {
-        x: Math.floor(Math.random() * 700) + 50,
-        y: Math.floor(Math.random() * 500) + 50,
+        x: Math.floor(Math.random() * 500) + 50,
+        y: Math.floor(Math.random() * 400) + 50,
         playerId: socket.id,
         team: (lastPlayerTeam) ? 'yellow' : 'white'
     };
-    if(lastPlayerTeam === true) {
+    if (lastPlayerTeam === true) {
         lastPlayerTeam = false;
     } else {
         lastPlayerTeam = true;
@@ -96,14 +102,14 @@ io.on('connection', function (socket) {
     });
 });
 
-function ServerGameLoop() {
+setInterval(function () {
     for (let i = 0; i < bullets.length; i++) {
         let bullet = bullets[i];
         bullet.x += bullet.speed_x;
         bullet.y += bullet.speed_y;
 
         for (let id in players) {
-            if(players[bullet.owner_id] && players[id]) {
+            if (players[bullet.owner_id] && players[id]) {
                 if (bullet.owner_id !== id && players[bullet.owner_id].team !== players[id].team) {
                     // And your own bullet shouldn't kill you
                     let dx = players[id].x - bullet.x;
@@ -130,9 +136,9 @@ function ServerGameLoop() {
 
     }
     io.emit("renderBullets", bullets);
-}
+}, 16);
 
-setInterval(ServerGameLoop, 16);
+// setInterval(ServerGameLoop, 16);
 
 // Session
 app.use(session({

@@ -3,9 +3,11 @@ export function update() {
     if (this.cursors.left.isDown) {
       this.bro.setVelocityX(-200);
       this.bro.flipX = true;
+      this.socket.emit('flip', {angle: this.bro.flipX});
     } else if (this.cursors.right.isDown) {
       this.bro.setVelocityX(200);
       this.bro.flipX = false;
+      this.socket.emit('flip', {angle: this.bro.flipX});
     }
 
     if (this.cursors.up.isDown) {
@@ -32,10 +34,9 @@ export function update() {
       if (this.bro.flipX === true) {
         speed_x = Math.cos(90 + Math.PI / 2) * 20;
       } else {
-        speed_x = Math.cos(270 + Math.PI / 2) * 20;
+        speed_x = Math.cos(270 + Math.PI / 2) * 60;
       }
       this.bro.shot = true;
-      // Tell the server we shot a bullet
       this.socket.emit('fire', {x: this.bro.x, y: this.bro.y, angle: this.bro.rotation, speed_x: speed_x, speed_y: 0})
     }
     if (!this.cursors.shift.isDown) this.bro.shot = false;

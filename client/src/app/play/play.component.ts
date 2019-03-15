@@ -2,44 +2,29 @@ import {Component, ViewChild, ElementRef, OnInit, OnDestroy} from '@angular/core
 import {preload} from "./game/scene/preload";
 import {create} from "./game/scene/create";
 import {update} from "./game/scene/update";
+import {GameService} from "../_services/game.service";
 
 @Component({
   selector: 'app-play',
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.css']
 })
-export class PlayComponent implements OnInit, OnDestroy {
-  @ViewChild('mygame') mygame: ElementRef;
+export class PlayComponent implements OnInit {
+  @ViewChild('phaser') phaser: ElementRef;
 
-  title = 'angular-phaser';
+  title = 'phaser';
 
   game: Phaser.Game;
 
-  public readonly gameConfig: GameConfig = {
-    type: Phaser.AUTO,
-    width: 1200,
-    height: 700,
-    physics: {
-      default: 'arcade',
-      arcade: {
-        gravity: { y: 0 },
-        debug: false,
-      }
-    },
-    scene: {
-      preload: preload,
-      create: create,
-      update: update
-    } ,
-    parent: 'phaser',
-  };
+  constructor(private gameService:GameService) {
+  }
 
   ngOnInit(): void {
-    this.game = new Phaser.Game(this.gameConfig);
+    this.gameService.createGame();
   }
 
   ngOnDestroy() {
-    this.game.destroy(true);
+    this.gameService.destoryGame();
   }
 
 

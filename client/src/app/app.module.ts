@@ -37,7 +37,6 @@ const config = {url: 'http://localhost:4200', option:{}};
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    // SocketIoModule.forRoot(config),
     ToastrModule.forRoot({
       timeOut: 5000,
       positionClass: 'toast-top-right',
