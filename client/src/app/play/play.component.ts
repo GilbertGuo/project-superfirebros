@@ -19,7 +19,7 @@ export class PlayComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     let image = new Image();
-    image.src = "../assets/img/1.jpg";
+    image.src = "../assets/img/2.png";
 
     this.context = (<HTMLCanvasElement>this.myCanvas.nativeElement).getContext('2d');
     /*this.context.fillStyle ="red";
@@ -57,10 +57,12 @@ export class PlayComponent implements AfterViewInit {
         ctx.fillRect(x,y,30,30);
       }
       if(keycode=="ArrowLeft"){
+        image.src = "../assets/img/3.png";
         checkright=false;
         speedx=-1;
       }
       if(keycode=="ArrowRight"){
+        image.src = "../assets/img/2.png";
         checkright=true;
         speedx=1;
       }
