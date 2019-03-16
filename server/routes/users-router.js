@@ -1,3 +1,5 @@
+'use strict';
+
 const express = require('express');
 const middleware = require('../../common-lib/middleware');
 const router = express.Router();
@@ -6,22 +8,15 @@ const logger = require("../../common-lib/logger");
 let db = require("../db/db");
 let User = require('../db/model/user');
 
-router.use(function (req, res, next) {
-    console.log('Time:', Date.now());
-    next();
-});
-
 // a middleware sub-stack shows request info for any type of HTTP request to the /user/:id path
 router.use('/user/:id', function (req, res, next) {
     logger.info('Request URL:', req.originalUrl);
-    next()
 }, function (req, res, next) {
     logger.info('Request Type:', req.method);
-    next()
 });
 
 /*https://medium.com/@yugagrawal95/mongoose-mongodb-functions-for-crud-application-1f54d74f1b34*/
-router.post('/register', function (req, res, next) {
+router.post('/register', middleware.checkUsername,function (req, res, next) {
     logger.info("received new user register info: ", {username: req.body.username, password: req.body.password});
 
     if (req.body.username && req.body.password && req.body.email) {
@@ -33,7 +28,9 @@ router.post('/register', function (req, res, next) {
 
         User.create(newUser, function (err, user) {
             if (err) {
-                return logger.error(err);
+                err.status = 500;
+                logger.error(err);
+                return next(err);
             } else {
                 logger.info("new user registered: ", user);
                 req.session.userId = user._id;
@@ -50,10 +47,10 @@ router.post('/register', function (req, res, next) {
     }
 });
 
-router.post('/', function (req, res, next) {
+router.post('/', middleware.checkUsername, function (req, res, next) {
     logger.info("user login : ", {username: req.body.username, password: req.body.password});
     if (req.body.username && req.body.password) {
-        User.authenticate(req.body.password, req.body.username, function (err, user) {
+        User.authenticate(req.body.username, req.body.password, function (err, user) {
             if (err) {
                 logger.error(err);
                 err.status = 401;

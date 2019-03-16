@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {User} from "../user.model";
 import {Observable, Subject, of} from "rxjs";
-import {tap} from "rxjs/operators";
+import {tap, catchError} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,9 @@ import {tap} from "rxjs/operators";
 export class UserService {
 
   private userProfile = {};
-  private url = "http://localhost:9000";
+  private url = "https://localhost:9000";
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,  private tostr:ToastrService) {
   }
 
   private setProfile(profile) {
@@ -52,8 +53,9 @@ export class UserService {
     return this.http.post(`${this.url}/users/`, user, {}).pipe(tap(
       (profile) => {
         this.setProfile(profile);
+
       }
-    ));
+    ))
   }
 
   // https://stackoverflow.com/questions/46866202/return-observableboolean-from-service-method-after-two-subscriptions-resolve

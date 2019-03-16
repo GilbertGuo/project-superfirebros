@@ -6,7 +6,7 @@ function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export class MyScene extends Phaser.Scene {
+export class GameScene extends Phaser.Scene {
   private bullets: any[];
   socket: any;
   otherPlayers: any;

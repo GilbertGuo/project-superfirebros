@@ -1,3 +1,5 @@
+'use strict';
+
 /* https://medium.freecodecamp.org/introduction-to-mongoose-for-mongodb-d2a7aa593c57 */
 const mongoose = require('mongoose');
 const logger = require("../../common-lib/logger");

@@ -1,5 +1,5 @@
 import {Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
-import {MyScene} from "./game/scene";
+import {GameScene} from "./game/scene";
 
 @Component({
   selector: 'app-play',
@@ -26,7 +26,7 @@ export class PlayComponent implements OnInit, OnDestroy, AfterViewInit {
     },
     parent: 'phaser',
   };
-  private scene: MyScene;
+  private scene: GameScene;
 
   constructor() {
   }
@@ -41,7 +41,7 @@ export class PlayComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.scene = new MyScene();
+    this.scene = new GameScene();
     this.game.events.once('ready', () => {
       this.game.scene.add('Scene', this.scene, true);
     });
