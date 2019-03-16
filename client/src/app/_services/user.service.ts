@@ -33,9 +33,7 @@ export class UserService {
   }
 
   register(user: User) {
-    this.http.post(`${this.url}/users/register`, user, {}).subscribe(
-      (data) => console.log('Registered in successfully')
-    );
+    return this.http.post(`${this.url}/users/register`, user, {})
   }
 
   // https://stackoverflow.com/questions/54888671/angular-6-wait-for-subscribe-to-finish

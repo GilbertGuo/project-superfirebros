@@ -3,6 +3,7 @@ import {User} from "../../user.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../_services/user.service";
 import {min} from "rxjs/operators";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   success = false;
   registerForm: FormGroup;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
@@ -28,10 +29,11 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    if(this.registerForm.invalid) {
+    if (this.registerForm.invalid) {
       return;
     } else {
       this.success = true;
+      this.register();
     }
   }
 
@@ -42,8 +44,9 @@ export class RegisterComponent implements OnInit {
         this.registerForm.controls.password.value,
         this.registerForm.controls.email.value
       );
-      this.userService.register(newUser);
-      console.log('registered');
+      this.userService.register(newUser).subscribe(() => {
+        this.toastr.info("Registered successfully")
+      });
     }
   }
 

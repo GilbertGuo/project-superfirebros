@@ -3,6 +3,7 @@ import {UserService} from "../_services/user.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {User} from "../user.model";
 import {Router} from "@angular/router";
+import {ToastrService} from "ngx-toastr";
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
   success = false;
 
-  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router) {
+  constructor(private userService: UserService, private formBuilder: FormBuilder, private router: Router, private toastr:ToastrService) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -48,6 +49,7 @@ export class LoginComponent implements OnInit {
       );
       this.userService.login(user).subscribe((profile) => {
         console.log("yes, you are in.");
+        this.toastr.info("Hey, you just logged in.");
         this.toProfile();
       })
     }
