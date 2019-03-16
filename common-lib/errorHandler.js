@@ -3,11 +3,7 @@ function errorHandler(err, req, res, next) {
         return res.status(400).json({ message: err });
     }
 
-    if (err.name === 'ValidationError') {
-        return res.status(400).json({ message: err.message });
-    }
-
-    if (err.name === 'ValidationError') {
+    if (err.name === 'MongoError') {
         return res.status(400).json({ message: err.message });
     }
 
