@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
+import {GameService} from "../_services/game.service";
 
 @Component({
   selector: 'app-nav',
@@ -8,16 +9,17 @@ import {ToastrService} from "ngx-toastr";
 })
 export class NavComponent implements OnInit {
 
-  // constructor() { }
+  currentComponent: any;
 
   ngOnInit() {
   }
 
-  constructor(private toastr: ToastrService) {}
-
-  showSuccess() {
-    this.toastr.error('About');
-    // this.toastr.success('About', '');
+  constructor(private toastr: ToastrService, private gameService: GameService) {
   }
 
+
+  destroyGame(component: String) {
+    // this.gameService.destoryGame();
+
+  }
 }

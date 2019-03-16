@@ -95,6 +95,7 @@ button.toast-close-button {
 }
 .toast-container .toast {
   position: relative;
+  font-size: 11px;
   overflow: hidden;
   margin: 0 0 6px;
   padding: 15px 15px 15px 50px;

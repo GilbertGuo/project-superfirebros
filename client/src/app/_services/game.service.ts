@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Playerposition } from '../play/Playerposition';
+import {Injectable} from '@angular/core';
+
+
 
 
 @Injectable({
@@ -7,13 +8,4 @@ import { Playerposition } from '../play/Playerposition';
 })
 export class GameService {
 
-  constructor() { }
-  player: Playerposition = {
-    x: 10,
-    y: 120
-  };
-
-  createPlayer(): void {
-
-  }
 }

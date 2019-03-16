@@ -6,10 +6,25 @@
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <iframe width="0" height="0" src="https://youtubeloop.net/watch?v=SB1VqLCTFpA" fullborder="0" allowfullscreen> </iframe>
 </head>
 <body>
-  <app-root></app-root>
+<app-root>
+  <style>
+    @import 'https://fonts.googleapis.com/css?family=Press+Start+2P';
+    #load {
+      position: absolute;
+      left: 40%;
+      top: 40%;
+      font-family: "Press Start 2P", serif;
+      font-size: 18px;
+    }
+  </style>
+  <div id="load">
+    Now Loading...
+  </div>
+</app-root>
 </body>
 </html>

@@ -29,6 +29,9 @@
 - Socket.io -  Frontend and backend real time communication and stream
 - Express - Backend framework
 - AngularJS - Frontend framework
+- Phaser - WebGL game development library
+- Log4js - Logger
+- Bcrypt -  Hashing and Salting
 - MongoDB - Server Database
 - NES.CSS - CSS framework
 - ApiDoc for generating api Documentation
@@ -45,3 +48,5 @@
 
 ###dev-guide
 - install mongodb: https://treehouse.github.io/installation-guides/mac/mongo-mac.html
+- https://code.tutsplus.com/tutorials/create-a-multiplayer-pirate-shooter-game-in-your-browser--cms-23311
+- https://gamedevacademy.org/create-a-basic-multiplayer-game-in-phaser-3-with-socket-io-part-2/

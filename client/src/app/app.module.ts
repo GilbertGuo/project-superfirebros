@@ -1,10 +1,10 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {ReactiveFormsModule} from "@angular/forms";
 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -13,8 +13,10 @@ import {AboutComponent} from './about/about.component';
 import {NavComponent} from './nav/nav.component';
 import {PlayComponent} from './play/play.component';
 import {SpectateComponent} from './spectate/spectate.component';
-import { SettingComponent } from './setting/setting.component';
-import {timeout} from "rxjs/operators";
+import {SettingComponent} from './setting/setting.component';
+import {RegisterComponent} from "./login/register/register.component";
+import {ProfileComponent} from "./login/profile/profile.component";
+import {HttpErrorInterceptor} from "./_services/httpInterceptor";
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import {timeout} from "rxjs/operators";
     NavComponent,
     PlayComponent,
     SpectateComponent,
-    SettingComponent
+    SettingComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -33,13 +37,17 @@ import {timeout} from "rxjs/operators";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot({
-      timeOut: 5000,
-      positionClass: 'toast-top-right',
-      preventDuplicates: true,
+        timeOut: 5000,
+        positionClass: 'toast-top-right',
+        preventDuplicates: true,
       }
     )
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: HttpErrorInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

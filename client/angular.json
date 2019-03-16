@@ -27,7 +27,9 @@
               "./node_modules/nes.css/scss/nes.scss",
               "src/toastr.css"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/phaser/dist/phaser.js"
+            ],
             "es5BrowserSupport": true
           },
           "configurations": {
