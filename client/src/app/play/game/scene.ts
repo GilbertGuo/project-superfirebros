@@ -28,7 +28,7 @@ export class GameScene extends Phaser.Scene {
     this.load.image('otherPlayer', 'assets/ghost.png');
     this.load.image('coin', 'assets/coin.png');
     this.load.image('bullet', "assets/fire.png");
-    this.load.image('background', "assets/background.jpg");
+    this.load.image('background', "assets/newbg.png");
   }
 
   public create() {

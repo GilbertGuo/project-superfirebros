@@ -16,7 +16,7 @@ export class PlayComponent implements OnInit, OnDestroy, AfterViewInit {
   public readonly gameConfig: GameConfig = {
     type: Phaser.AUTO,
     width: 1000,
-    height: 410,
+    height: 650,
     physics: {
       default: 'arcade',
       arcade: {
