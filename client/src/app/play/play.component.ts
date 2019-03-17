@@ -24,7 +24,9 @@ export class PlayComponent implements OnInit, OnDestroy, AfterViewInit {
         debug: false,
       }
     },
+
     parent: 'phaser',
+
   };
   private scene: GameScene;
 

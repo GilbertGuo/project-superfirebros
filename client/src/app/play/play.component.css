@@ -1,3 +1,9 @@
+/*https://stackoverflow.com/questions/51217147/how-to-use-a-local-font-in-phaser-3*/
+@font-face {
+  font-family: game_font;
+  src: url('./game/Press_Start_2P/PressStart2P-Regular.ttf');
+}
+
 body {
   display: flex;
   justify-content: center;
