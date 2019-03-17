@@ -23,7 +23,9 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
+
   public preload() {
+
     this.load.image('bro', 'assets/mario.png');
     this.load.image('otherPlayer', 'assets/ghost.png');
     this.load.image('coin', 'assets/coin.png');
@@ -84,8 +86,8 @@ export class GameScene extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.whiteScoreText = this.add.text(16, 16, '', {fontSize: '32px', fill: '#FFFAFA'});
-    this.yellowScoreText = this.add.text(300, 16, '', {fontSize: '32px', fill: '#FFFF00'});
+    this.whiteScoreText = this.add.text(16, 16, '', {fontsize: '30px', fontFamily: 'game_font', fill: '#FFFAFA'});
+    this.yellowScoreText = this.add.text(300, 16, '', {fontsize: '30px', fontFamily: 'game_font', fill: '#FFFF00'});
 
 
     this.socket.on('updateScore', function (scores) {
