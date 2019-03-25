@@ -12,7 +12,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class LoginComponent implements OnInit {
 
-  // loginStatus: boolean = false;
+  loginStatus: any;
   // users: Object;
   loginForm: FormGroup;
   submitted = false;
@@ -47,20 +47,21 @@ export class LoginComponent implements OnInit {
         this.loginForm.controls.password.value,
         ""
       );
-      this.userService.login(user).subscribe((profile) => {
-        console.log("yes, you are in.");
-        this.toastr.info("Hey, you just logged in.");
+      this.userService.login(user).subscribe((res) => {
+        this.loginStatus = res;
+        if(this.loginStatus.success) {
+          this.userService.setProfile({name: this.loginStatus.name, email: this.loginStatus.email});
+          this.loginStatus = this.loginStatus.success;
+          this.toastr.info("Hey, you just logged in.");
+        }
+
         this.toProfile();
       })
     }
   }
 
   toProfile() {
-    this.userService.isLoggedin().subscribe((res) => {
-      if (res) {
-        this.router.navigate(['/profile']);
-      }
-    });
+    this.router.navigate(['/profile']);
   }
 
 }

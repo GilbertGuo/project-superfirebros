@@ -11,21 +11,27 @@ import {ToastrService} from "ngx-toastr";
 export class AuthenticateGuard implements CanActivate {
 
 
-  constructor(private router: Router, private userService: UserService, private toastr:ToastrService) {
+  constructor(private router: Router, private userService: UserService, private toastr: ToastrService) {
   }
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.userService.isLoggedin().pipe(tap((res) => {
-      if(res === true) {
-        return true;
-      } else {
-        this.toastr.warning("You idiot need to login first.");
-        this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-        return false;
-      }
-    }));
+  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const currentUser = this.userService.currentUserValue;
+    if (currentUser) {
+      return true;
+    } else {
+      this.toastr.warning("You idiot need to login first.");
+      this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+      return false;
+    }
+    // return this.userService.isLoggedin().pipe(tap((res) => {
+    //   if(res) {
+    //     return true;
+    //   } else {
+    //     this.toastr.warning("You idiot need to login first.");
+    //     this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+    //     return false;
+    //   }
+    // }));
   }
 
 }

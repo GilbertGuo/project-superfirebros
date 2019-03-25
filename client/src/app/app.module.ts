@@ -17,6 +17,7 @@ import {SettingComponent} from './setting/setting.component';
 import {RegisterComponent} from "./login/register/register.component";
 import {ProfileComponent} from "./login/profile/profile.component";
 import {HttpErrorInterceptor} from "./_services/httpInterceptor";
+import {AuthInterceptor} from "./_services/authInterceptor";
 
 @NgModule({
   declarations: [
@@ -43,11 +44,10 @@ import {HttpErrorInterceptor} from "./_services/httpInterceptor";
       }
     )
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpErrorInterceptor,
-    multi: true
-  }],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,5 +1,5 @@
 'use strict';
-
+/* https://www.djamware.com/post/5a878b3c80aca7059c142979/securing-mean-stack-angular-5-web-application-using-passport */
 /* https://medium.freecodecamp.org/introduction-to-mongoose-for-mongodb-d2a7aa593c57 */
 let mongoose = require('mongoose');
 let validator = require('validator');
@@ -41,25 +41,12 @@ userSchema.pre('save', function (next) {
     })
 });
 
-userSchema.statics.authenticate = function (username, password, callback) {
-    User.findOne({username: username}).exec(function (err, user) {
+userSchema.methods.comparePassword = function (password, callback) {
+    bcrypt.compare(password, this.password, function (err, res) {
         if (err) {
             return callback(err);
-        } else if (!user) {
-            let err = new Error('user does not exist.');
-            err.status = 401;
-            return callback(err);
         }
-        bcrypt.compare(password, user.password, function (err, res) {
-            if (err) {
-                return callback(err);
-            }
-            if (res === true) {
-                return callback(null, user);
-            } else {
-                return callback();
-            }
-        })
+        callback(null, res);
     });
 };
 let User = mongoose.model('User', userSchema);

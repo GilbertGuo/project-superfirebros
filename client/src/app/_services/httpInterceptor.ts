@@ -7,23 +7,28 @@ import {
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
+import {UserService} from "./user.service";
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-  constructor(private toastr: ToastrService) {
+  constructor(private toastr: ToastrService, private userService:UserService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(catchError((err: HttpErrorResponse) => {
-        let msg;
+        let msg = err.error.message || err.statusText;
+        if (err.status === 401) {
+          this.userService.logout();
+          location.reload(true);
+        }
         if (err.error instanceof ErrorEvent) {
           // client-side error
-          msg = `Error: ${err.error.message}`;
+          msg = `Error: ${msg}`;
         } else {
           // server-side error
-          msg = `Error Code: ${err.status}\nMessage: ${err.message}`;
+          msg = `${err.status}\nMessage: ${msg}`;
         }
         this.toastr.error(msg);
         return throwError(msg);
