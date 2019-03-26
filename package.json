@@ -4,7 +4,7 @@
   "description": "a multi player game for cscc09 project",
   "main": "server/server.js",
   "scripts": {
-    "build": "cd client && ng build && cd ..",
+    "build": "cd client && npm -i @angular-devkit/build-angular -- dev && ng build && cd ..",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
     "dev": "node server/server.js",
     "dev-build-and-run": "cd client && ng build && cd .. &&nodemon server/server.js",
