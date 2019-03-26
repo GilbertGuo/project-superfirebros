@@ -10,11 +10,11 @@ import {UserService} from "./_services/user.service";
 import {AuthenticateGuard} from "./authenticate.guard";
 
 const routes: Routes = [
-  {path: 'profile', component: ProfileComponent, canActivate:[AuthenticateGuard]},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthenticateGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'play', component: PlayComponent,canActivate:[AuthenticateGuard]},
-  {path: 'spectate', component:SpectateComponent,canActivate:[AuthenticateGuard]},
+  {path: 'play', component: PlayComponent, canActivate: [AuthenticateGuard]},
+  {path: 'spectate', component: SpectateComponent, canActivate: [AuthenticateGuard]},
   {path: 'register', component: RegisterComponent}
 ];
 
