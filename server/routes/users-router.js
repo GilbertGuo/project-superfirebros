@@ -66,7 +66,7 @@ router.post('/', middleware.checkUsername, function (req, res, next) {
             logger.info(user);
             user.comparePassword(req.body.password, function (err, pass) {
                 if (err) res.status(401).send({message: 'Password is wrong'});
-                if(!pass) res.status(401).send({message: 'Password is wrong'});
+                if (!pass) res.status(401).send({message: 'Password is wrong'});
                 if (pass & !err) {
                     let token = jwt.sign(user.toJSON(), config.secret);
                     req.session.username = user.username;
@@ -77,15 +77,23 @@ router.post('/', middleware.checkUsername, function (req, res, next) {
     });
 });
 
-router.get('/c', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+// router.get('/auth/google', passport.authenticate('jwt', {session: false}), function (req, res, next) {
+//     let token = req.headers;
+//     if (token) {
+//         res.json({res: true});
+//
+//     }
+// });
+router.get('/auth', passport.authenticate('jwt', {session: false}), function (req, res, next) {
     let token = req.headers;
     if (token) {
-        res.json({name: 123, email: 123});
+        res.json({res: true});
 
     }
 });
 
-router.get('/profile', passport.authenticate('jwt', {session: true}), function (req, res, next) {
+
+router.get('/profile/', passport.authenticate('jwt', {session: true}), function (req, res, next) {
     let token = req.headers.authorization;
     logger.info(req.headers);
     if (token) {

@@ -9,17 +9,9 @@ import {GameService} from "../_services/game.service";
 })
 export class NavComponent implements OnInit {
 
-  currentComponent: any;
-
   ngOnInit() {
   }
 
   constructor(private toastr: ToastrService, private gameService: GameService) {
-  }
-
-
-  destroyGame(component: String) {
-    // this.gameService.destoryGame();
-
   }
 }

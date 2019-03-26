@@ -16,7 +16,7 @@ export class AuthenticateGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.userService.currentUserValue;
-    if (currentUser) {
+    if (currentUser || (this.userService.socialSignIn && this.userService.user)) {
       return true;
     } else {
       this.toastr.warning("You idiot need to login first.");

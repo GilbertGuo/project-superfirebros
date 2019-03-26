@@ -18,6 +18,18 @@ import {RegisterComponent} from "./login/register/register.component";
 import {ProfileComponent} from "./login/profile/profile.component";
 import {HttpErrorInterceptor} from "./_services/httpInterceptor";
 import {AuthInterceptor} from "./_services/authInterceptor";
+import {AuthServiceConfig, GoogleLoginProvider, SocialLoginModule} from "angularx-social-login";
+
+let config = new AuthServiceConfig([
+  {
+    id: GoogleLoginProvider.PROVIDER_ID,
+    provider: new GoogleLoginProvider("367409484528-lbk2tvq8de86nt2tauehkf5b0v0j0cql.apps.googleusercontent.com")
+  }
+]);
+
+export function provideConfig() {
+  return config;
+}
 
 @NgModule({
   declarations: [
@@ -37,6 +49,7 @@ import {AuthInterceptor} from "./_services/authInterceptor";
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    SocialLoginModule,
     ToastrModule.forRoot({
         timeOut: 5000,
         positionClass: 'toast-top-right',
@@ -45,9 +58,10 @@ import {AuthInterceptor} from "./_services/authInterceptor";
     )
   ],
   providers: [
+    {provide: AuthServiceConfig, useFactory: provideConfig},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
-    ],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

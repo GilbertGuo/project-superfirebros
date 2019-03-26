@@ -13,8 +13,6 @@ const methodOverride = require('method-override');
 const errorHandler = require('../common-lib/errorHandler');
 const fs = require('fs');
 const config = require("./config/db");
-const spdy = require('spdy');
-const morgan = require('morgan');
 const mongoose = require('mongoose');
 const passport = require('passport');
 
@@ -34,6 +32,7 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(methodOverride());
 app.use(express.static(client));
 app.use(passport.initialize({}));
+app.use(passport.session());
 app.use(errorHandler);
 
 let app_session = session({
@@ -48,12 +47,18 @@ let app_session = session({
 });
 
 gameSocket.init(server, app_session);
+
 // session
 app.use(app_session);
 
 app.use('/users', usersRouter);
+app.get('*', (req, res) => {
+    res.sendFile(path.join(client, "index.html"));
+});
+
 app.use(function (req, res, next) {
     logger.info("HTTP request", req.method, req.url, req.body);
+    next();
 });
 
 server.listen(PORT, (err) => {
@@ -63,9 +68,5 @@ server.listen(PORT, (err) => {
     } else {
         logger.info("HTTPS server on https://localhost:%s", PORT);
     }
-});
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(client, "index.html"));
 });
 
