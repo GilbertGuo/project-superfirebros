@@ -4,11 +4,16 @@
 const mongoose = require('mongoose');
 const logger = require("../../common-lib/logger");
 const env = require('dotenv').config();
+mongoose.Promise = require('bluebird');
 
-// let server = '127.0.0.1:27017';
-let server = process.env.DB_SERVER;
-let database = process.env.DB;
-let mongoDB = `mongodb://${server}/${database}`;
+let mongoDB;
+if (process.env.MODE === 'PROD') {
+    mongoDB = `${process.env.MONGODB_URI}`
+} else {
+    let server = process.env.DB_SERVER;
+    let database = process.env.DB;
+    mongoDB = `mongodb://${server}/${database}`;
+}
 
 class DB {
     constructor() {
