@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/UTSCC09/project-superfirebros#readme",
   "dependencies": {
+    "@angular/compiler-cli": "^7.2.10",
+    "@angular/cli": "^7.3.6",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "connect-mongodb-session": "^2.1.1",
