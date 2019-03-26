@@ -56,8 +56,6 @@ router.post('/register', middleware.checkUsername, function (req, res, next) {
 
 router.post('/', middleware.checkUsername, function (req, res, next) {
     logger.info("user login : ", {username: req.body.username, password: req.body.password});
-
-
     User.findOne({username: req.body.username}, function (err, user) {
         if (err) return next(err);
         if (!user) {
@@ -75,21 +73,6 @@ router.post('/', middleware.checkUsername, function (req, res, next) {
             });
         }
     });
-});
-
-// router.get('/auth/google', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-//     let token = req.headers;
-//     if (token) {
-//         res.json({res: true});
-//
-//     }
-// });
-router.get('/auth', passport.authenticate('jwt', {session: false}), function (req, res, next) {
-    let token = req.headers;
-    if (token) {
-        res.json({res: true});
-
-    }
 });
 
 

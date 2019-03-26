@@ -21,14 +21,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         let msg = err.error.message || err.statusText;
         if (err.status === 401) {
           this.userService.logout();
-          location.reload(true);
+          msg = `${err.status}\n ${msg}`;
         }
         if (err.error instanceof ErrorEvent) {
           // client-side error
           msg = `Error: ${msg}`;
         } else {
           // server-side error
-          msg = `${err.status}\nMessage: ${msg}`;
+          msg = `${err.status}\n ${msg}`;
         }
         this.toastr.error(msg);
         return throwError(msg);
