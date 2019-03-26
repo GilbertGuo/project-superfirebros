@@ -22,9 +22,12 @@
           Username is required.
         </div>
       </div>
-      <button type="submit" class="nes-btn is-success">Login</button>
-      <button type="button" class="nes-btn is-primary" routerLink="/register">Register</button>
-
+      <div class="button-container">
+        <button type="submit" class="nes-btn is-success">Login</button>
+        <button type="button" class="nes-btn is-warning" (click)="googleAuth()"><i class="nes-icon google is-small"></i>Login with google
+        </button>
+        <button type="button" class="nes-btn is-primary" routerLink="/register">Register</button>
+      </div>
     </div>
   </form>
 </div>

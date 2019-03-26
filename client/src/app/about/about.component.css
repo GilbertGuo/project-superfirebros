@@ -7,9 +7,24 @@
   text-align: center;
 }
 
+ul {
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
 li {
-  width: 20%;
+  font-size: 14px;
+  text-decoration: none;
+  width: auto;
   margin: auto;
+  margin-bottom: 4px;
 }
 
 .instruction {
