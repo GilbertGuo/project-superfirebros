@@ -1,3 +1,10 @@
-<p>
-  spectate works!
-</p>
+<div class="md-form">
+  <input type="text" id="text_form" placeholder="Enter your comment" #titleInput>
+  <button type="submit" class="nes-button is-success" (click)="sendMessage(this.currentUser+' : '+titleInput.value)">Send Comment</button>
+</div>
+
+<div class="messages">
+  <div class="nes-balloon from-right" *ngFor="let message of this.get_messages">
+    <p>{{ message.slice(1,-1) }}</p>
+  </div>
+</div>

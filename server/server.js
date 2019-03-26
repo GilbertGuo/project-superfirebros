@@ -50,8 +50,6 @@ let app_session = session({
 
 gameSocket.init(server, app_session);
 
-
-
 // session
 app.use(app_session);
 

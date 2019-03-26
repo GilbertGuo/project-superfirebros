@@ -10,7 +10,7 @@ import {ToastrService} from "ngx-toastr";
 })
 export class UserService {
 
-  private userProfile = {};
+  public userProfile;
   private url = "https://localhost:9000";
 
   constructor(private http: HttpClient,  private tostr:ToastrService) {

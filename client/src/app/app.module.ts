@@ -17,6 +17,8 @@ import {SettingComponent} from './setting/setting.component';
 import {RegisterComponent} from "./login/register/register.component";
 import {ProfileComponent} from "./login/profile/profile.component";
 import {HttpErrorInterceptor} from "./_services/httpInterceptor";
+import {ChatService} from "./chat.service";
+import {WebsocketService} from "./websocket.service";
 
 @NgModule({
   declarations: [
@@ -43,7 +45,7 @@ import {HttpErrorInterceptor} from "./_services/httpInterceptor";
       }
     )
   ],
-  providers: [{
+  providers: [ChatService, WebsocketService, {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpErrorInterceptor,
     multi: true
