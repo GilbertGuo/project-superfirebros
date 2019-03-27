@@ -25,7 +25,7 @@ const options = {
 let app = express();
 let server = https.createServer(options, app);
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 9000;
 let client = path.join(__dirname, '../client/dist/super-fire-bros/');
 
 app.use(bodyParser.json());
