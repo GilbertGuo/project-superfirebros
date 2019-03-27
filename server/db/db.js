@@ -8,10 +8,10 @@ mongoose.Promise = require('bluebird');
 
 let mongoDB;
 if (process.env.MODE === 'PROD') {
-    mongoDB = `${process.env.MONGODB_URI}`
+    mongoDB = `${process.env.MONGOLAB_URI}`
 } else {
-    let server = process.env.DB_SERVER;
-    let database = process.env.DB;
+    let server = process.env.DEV_DB_SERVER;
+    let database = process.env.DEV_DB;
     mongoDB = `mongodb://${server}/${database}`;
 }
 
