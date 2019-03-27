@@ -5,9 +5,12 @@ const mongoose = require('mongoose');
 const logger = require("../../common-lib/logger");
 const env = require('dotenv').config();
 mongoose.Promise = require('bluebird');
-
-let mongoDB = `${process.env.MONGODB_URI}`;
-
+let uri
+if(process.env.MODE === 'PROD') {
+    let uri = `${process.env.MONGODB_URI}`;
+} else {
+    uri = 'mongodb://127.0.0.1:27017/dev_db'
+}
 class DB {
     constructor() {
         this._connect()
