@@ -11,6 +11,7 @@ if(process.env.MODE === 'PROD') {
 } else {
     uri = 'mongodb://127.0.0.1:27017/dev_db';
 }
+logger.log(uri);
 class DB {
     constructor() {
         this._connect()
