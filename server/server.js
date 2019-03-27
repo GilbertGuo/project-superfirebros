@@ -35,7 +35,7 @@ app.use(express.static(client));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 app.use(errorHandler);
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+// app.use(enforce.HTTPS({ trustProtoHeader: true }));
 let uri;
 if(process.env.MODE === 'PROD') {
     uri = process.env.MONGODB_URI;
