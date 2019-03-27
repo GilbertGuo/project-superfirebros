@@ -7,7 +7,7 @@ const env = require('dotenv').config();
 mongoose.Promise = require('bluebird');
 let uri
 if(process.env.MODE === 'PROD') {
-    let uri = `${process.env.MONGODB_URI}`;
+    let uri = process.env.MONGODB_URI;
 } else {
     uri = 'mongodb://127.0.0.1:27017/dev_db'
 }
