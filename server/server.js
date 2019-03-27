@@ -35,13 +35,18 @@ app.use(passport.initialize({}));
 app.use(passport.session());
 app.use(errorHandler);
 
+let uri;
+if(process.env.MODE === 'PROD') {
+    uri = process.env.MONGODB_URI;
+} else {
+    uri = 'mongodb://127.0.0.1:27017/dev_db';
+}
 let app_session = session({
     secret: config.secret,
     resave: true,
     saveUninitialized: false,
     store: new MongoSessionStore({
-        uri: `mongodb://${process.env.DB_SERVER}/${process.env.DB}`,
-        databaseName: process.env.DB,
+        uri: uri,
         collection: 'sessions'
     })
 });
