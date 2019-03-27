@@ -16,7 +16,7 @@ export class UserService {
 
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-  private userProfile;
+  userProfile;
   private url = environment.url;
   socialSignIn = false;
   user: SocialUser;

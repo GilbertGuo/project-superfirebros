@@ -1,10 +1,25 @@
-<div class="md-form">
-  <input type="text" id="text_form" placeholder="Enter your comment" #titleInput>
-  <button type="submit" class="nes-button is-success" (click)="sendMessage(this.currentUser+' : '+titleInput.value)">Send Comment</button>
-</div>
-
-<div class="messages">
-  <div class="nes-balloon from-right" *ngFor="let message of this.get_messages">
-    <p>{{ message.slice(1,-1) }}</p>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div style="font-family:game_font; position:absolute; left:-1000px; visibility:hidden;">.</div>
+<div class="chat-message">
+  <div id="phaser" class="nes-container"></div>
+  <div>
+    <div class="messages">
+      <div class="nes-balloon from-right" *ngFor="let message of this.get_messages">
+        <p>{{ message }}</p>
+      </div>
+    </div>
+    <div class="md-form">
+      <textarea rows="4" cols="18" type="text" id="text_form" class="nes-textarea"  #titleInput></textarea>
+    </div>
+      <button type="button" class="nes-btn is-primary" (click)="sendMessage(this.currentUser+' : '+titleInput.value)">Send Comment</button>
   </div>
 </div>
+</body>

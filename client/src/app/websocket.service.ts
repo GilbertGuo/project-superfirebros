@@ -14,14 +14,12 @@ export class WebsocketService {
 
   private socket;
 
+
   constructor() {
   }
 
   connect(): Subject<MessageEvent> {
-    this.socket = io('https://localhost:9000');
-
-    // We define our observable which will observe any incoming messages
-    // from our socket.io server.
+    this.socket = io('/chat');
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
         console.log("Received message from Websocket Server");

@@ -2,10 +2,11 @@ const logger = require('../../common-lib/logger');
 const io = require('socket.io')();
 
 module.exports = {
-    init: function(server, session) {
+    init: function (server, session) {
         io.attach(server);
 
         let players = {};
+        let spectators = [];
         let coin = {
             x: 0,
             y: 0,
@@ -17,29 +18,28 @@ module.exports = {
         let connection = 0;
         let lastPlayerTeam = true;
         let bullets = [];
+        let coins = new Map();
 
         function generateCoin() {
             coin.x = Math.floor(Math.random() * 500) + 50;
             coin.y = Math.floor(Math.random() * 400) + 50;
         }
 
-        io.on("connection", socket => {
+        let nsp = io.of('/chat');
+        nsp.on("connection", socket => {
             console.log("user connected");
-            socket.on("disconnect", function() {
+            socket.on("disconnect", function () {
                 console.log("user disconnected");
             });
-
-            // When we receive a 'message' event from our client, print out
-            // the contents of that message and then echo it back to our client
-            // using `io.emit()`
             socket.on("message", message => {
                 console.log("Message Received: " + message);
-                io.emit("message", { type: "new-message", text: message });
+                nsp.emit("message", {type: "new-message", text: message});
             });
         });
 
-        io.on('connection', function (socket) {
-            logger.info('new user connected: ', socket.id);
+        let game = io.of('/game');
+        game.on('connection', function (socket) {
+            logger.info('new player connected: ', socket.id);
 
             if (connection === 0) {
                 scores.white = 0;
@@ -53,33 +53,73 @@ module.exports = {
                 playerId: socket.id,
                 team: (lastPlayerTeam) ? 'yellow' : 'white'
             };
-
             lastPlayerTeam = lastPlayerTeam !== true;
             socket.emit('currentPlayers', players);
-            for (let i = 1; i < 6; i++) {
-                generateCoin();
-                socket.emit('coin', coin, i);
+            spectators.forEach(function (spec) {
+                io.of('/spec').to(spec).emit('currentPlayers', players);
+            });
+
+            let spec = io.of('/spec');
+            spec.on('connection', function (socket) {
+                logger.info('new spectator connected: ', socket.id);
+                spectators.push(socket.id);
+                socket.emit('currentPlayers', players);
+                socket.emit('updateScore', scores);
+                Object.keys(coins).some(function (coin_key){
+                    socket.emit('coin', coins[coin_key], coin_key);
+                });
+
+            });
+
+            if (connection == 1) {
+                logger.info(connection);
+                for (let i = 1; i < 6; i++) {
+                    generateCoin();
+                    logger.info("current i coins: ", i, coin);
+                    let coin_x = coin.x;
+                    let coin_y = coin.y;
+                    coins[i] = { x: coin_x, y: coin_y};
+                    socket.emit('coin', coin, i);
+                    spectators.forEach(function (spec) {
+                        coins.forEach(function (coin) {
+                            socket.to(spec).emit('coin', coin, i);
+                        })
+
+                    });
+                }
+            } else {
+                Object.keys(coins).some(function (coin_key){
+                    socket.emit('coin', coins[coin_key], coin_key);
+                });
             }
 
             socket.emit('updateScore', scores);
             socket.broadcast.emit('newPlayer', players[socket.id]);
-
+            spectators.forEach(function (spec) {
+                io.of('/spec').to(spec).emit('updateScore', scores);
+            });
             socket.on('disconnect', function () {
                 connection--;
                 logger.info('user disconnected: ', socket.id);
                 delete players[socket.id];
-                io.emit('disconnect', socket.id);
+                game.emit('disconnect', socket.id);
             });
 
             socket.on('move', function (movement) {
                 players[socket.id].x = movement.x;
                 players[socket.id].y = movement.y;
                 socket.broadcast.emit('movement', players[socket.id]);
+                spectators.forEach(function (spec) {
+                    io.of('/spec').to(spec).emit('movement', players[socket.id]);
+                });
             });
 
             socket.on('flip', function (flipX) {
                 players[socket.id].flipX = flipX.angle;
                 socket.broadcast.emit('flipX', players[socket.id]);
+                spectators.forEach(function (spec) {
+                    io.of('/spec').to(spec).emit('flipX', players[socket.id]);
+                });
             });
 
             socket.on('collectCoin', function (i) {
@@ -89,8 +129,15 @@ module.exports = {
                     scores.white += 5;
                 }
                 generateCoin();
-                io.emit('coin', coin, i);
-                io.emit('updateScore', scores);
+                let coin_x = coin.x;
+                let coin_y = coin.y;
+                coins[i] = { x: coin_x, y: coin_y};
+                game.emit('coin', coin, i);
+                game.emit('updateScore', scores);
+                spectators.forEach(function (spec) {
+                    io.of('/spec').to(spec).emit('coin', coin, i);
+                    io.of('/spec').to(spec).emit('updateScore', scores);
+                });
             });
 
             socket.on('fire', function (data) {
@@ -116,13 +163,19 @@ module.exports = {
                             if (Math.sqrt(dx * dx + dy * dy) < 25) {
                                 bullet.x = -20;
                                 bullet.y = -20;
-                                io.emit('hitted', id);
+                                game.emit('hitted', id);
+                                spectators.forEach(function (spec) {
+                                    io.of('/spec').to(spec).emit('hitted', id);
+                                });
                                 if (players[id].team === 'yellow') {
-                                    scores.white += 1;
+                                    scores.white += 10;
                                 } else {
-                                    scores.yellow += 1;
+                                    scores.yellow += 10;
                                 }
-                                io.emit('updateScore', scores);
+                                game.emit('updateScore', scores);
+                                spectators.forEach(function (spec) {
+                                    io.of('/spec').to(spec).emit('updateScore', scores);
+                                });
                             }
                         }
                     }
@@ -137,10 +190,16 @@ module.exports = {
             if (scores.yellow >= 2000 || scores.white >= 2000) {
                 scores.yellow = 0;
                 scores.white = 0;
-                io.emit('updateScore', scores);
+                game.emit('updateScore', scores);
+                spectators.forEach(function (spec) {
+                    io.of('/spec').to(spec).emit('updateScore', scores);
+                });
             }
 
-            io.emit("renderBullets", bullets);
+            game.emit("renderBullets", bullets);
+            spectators.forEach(function (spec) {
+                io.of('/spec').to(spec).emit("renderBullets", bullets);
+            });
         }, 16);
     }
 };

@@ -6,7 +6,7 @@ function delay(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-export class GameScene extends Phaser.Scene {
+export class SpectateScene extends Phaser.Scene {
   private bullets: any[];
   socket: any;
   otherPlayers: any;
@@ -48,14 +48,14 @@ export class GameScene extends Phaser.Scene {
     };
 
     if (!this.socket) {
-      this.socket = io('/game');
+      this.socket = io('/spec');
     }
     this.otherPlayers = this.physics.add.group();
 
     this.socket.on('currentPlayers', function (players) {
       Object.keys(players).forEach(function (id) {
         if (players[id].playerId === self.socket.id) {
-          self.addPlayer(players[id]);
+          // self.addPlayer(players[id]);
         } else {
           self.addOtherPlayers(players[id]);
         }
@@ -98,9 +98,9 @@ export class GameScene extends Phaser.Scene {
     this.socket.on('coin', function (coin, key) {
       if (self.coin[key]) self.coin[key].destroy();
       self.coin[key] = self.physics.add.image(coin.x, coin.y, 'coin').setDisplaySize(30, 30);
-      self.physics.add.overlap(self.bro, self.coin[key], function () {
-        self.socket.emit('collectCoin', key);
-      }, null, self);
+      // self.physics.add.overlap(self.otherPlayers, self.coin[key], function () {
+      //   self.socket.emit('collectCoin', key);
+      // }, null, self);
     });
 
     this.socket.on('renderBullets', function (update_b) {
@@ -194,20 +194,6 @@ export class GameScene extends Phaser.Scene {
       if (!this.cursors.shift.isDown) this.bro.shot = false;
 
     }
-  }
-
-  addPlayer(playerInfo) {
-    this.bro = this.physics.add.sprite(playerInfo.x, playerInfo.y, 'bro').setOrigin(0.5, 0.5).setDisplaySize(50, 37);
-    this.bro.setBounce(0.2);
-    if (playerInfo.team === 'white') {
-      this.bro.setTint(0xFFFAFA);
-    } else {
-      this.bro.setTint(0xFFFF00);
-    }
-    this.bro.setDrag(100);
-    this.bro.setMaxVelocity(200);
-    this.bro.shot = false;
-
   }
 
   addOtherPlayers(playerInfo) {

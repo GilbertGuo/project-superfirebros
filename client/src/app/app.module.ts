@@ -30,6 +30,7 @@ let config = new AuthServiceConfig([
 export function provideConfig() {
   return config;
 }
+
 import {ChatService} from "./chat.service";
 import {WebsocketService} from "./websocket.service";
 
@@ -62,13 +63,10 @@ import {WebsocketService} from "./websocket.service";
   providers: [
     {provide: AuthServiceConfig, useFactory: provideConfig},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ChatService,
+    WebsocketService,
   ],
-  providers: [ChatService, WebsocketService, {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpErrorInterceptor,
-    multi: true
-  }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
