@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const session = require('express-session');
-const https = require('https');
+const https = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const env = require('dotenv').config();
@@ -15,6 +15,7 @@ const fs = require('fs');
 const config = require("./config/db");
 const mongoose = require('mongoose');
 const passport = require('passport');
+const enforce = require('express-sslify');
 
 const options = {
     key: fs.readFileSync(__dirname + '/crt/server.key'),
@@ -32,9 +33,9 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(methodOverride());
 app.use(express.static(client));
 app.use(passport.initialize({}));
-app.use(passport.session());
+app.use(passport.session({}));
 app.use(errorHandler);
-
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 let uri;
 if(process.env.MODE === 'PROD') {
     uri = process.env.MONGODB_URI;
