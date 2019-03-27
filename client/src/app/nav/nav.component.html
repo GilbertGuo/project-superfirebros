@@ -1,12 +1,12 @@
 <div class="nes-container with-title is-centered">
   <div>
-    <h3 class="title"><i class="snes-jp-logo"></i> Welcome to SuperFireBros</h3>
+    <h3 class="title" (click)="this.utility.backHome()" routerLink="/"><i class="snes-jp-logo"></i> Welcome to SuperFireBros</h3>
   </div>
   <div class="container">
     <!--<button type="button" class="nes-btn" routerLink="/">Home</button>-->
-    <button type="button" class="nes-btn" routerLink="/login">Player</button>
-    <button type="button" class="nes-btn" routerLink="/play">Play</button>
-    <button type="button" class="nes-btn" routerLink="/spectate">Spectate</button>
-    <button type="button" class="nes-btn" routerLink="/about">About</button>
+    <button type="button" class="nes-btn" (click)="this.utility.leaveHome()" routerLink="/login">Player</button>
+    <button type="button" class="nes-btn" (click)="this.utility.leaveHome()" routerLink="/play">Play</button>
+    <button type="button" class="nes-btn" (click)="this.utility.leaveHome()" routerLink="/spectate">Spectate</button>
+    <button type="button" class="nes-btn" (click)="this.utility.leaveHome()" routerLink="/about">About</button>
   </div>
 </div>

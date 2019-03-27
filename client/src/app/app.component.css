@@ -11,3 +11,20 @@ div {
   font-family: "Press Start 2P", serif;
   font-size: 11px;
 }
+
+.logo-container {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  height: available;
+}
+
+.logo-container IMG {
+  width: 30%;
+  height: 30%;
+  margin: auto;
+}
+
