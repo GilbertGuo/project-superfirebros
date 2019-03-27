@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {User} from "../../user.model";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../_services/user.service";
-import {min} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -17,9 +16,9 @@ export class RegisterComponent implements OnInit {
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.registerForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
+      username: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(3)]]
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 

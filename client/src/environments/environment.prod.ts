@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  url:"https://localhost:9000",
+  url:"super-fire-bros.herokuapp.com",
 };
