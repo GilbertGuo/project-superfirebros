@@ -4,9 +4,9 @@
   "description": "a multi player game for cscc09 project",
   "main": "server/server.js",
   "scripts": {
-    "build": "cd client && npm i @angular-devkit/build-angular --dev && ng build --prod --optimization&& cd ..",
+    "build": "cd client && npm i @angular-devkit/build-angular --dev && ng build --prod && cd ..",
     "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
-    "dev-build-and-run": "cd client && ng build --prod=false --optimization && cd .. && nodemon server/server.js",
+    "dev-build-and-run": "cd client && ng build --prod=false && cd .. && nodemon server/server.js",
     "dev": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js"
