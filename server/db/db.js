@@ -4,21 +4,16 @@
 const mongoose = require('mongoose');
 const logger = require("../../common-lib/logger");
 const env = require('dotenv').config();
+const config = require('../config/db');
 mongoose.Promise = require('bluebird');
-let uri;
-if(process.env.MODE === 'PROD') {
-    uri = process.env.MONGODB_URI;
-} else {
-    uri = 'mongodb://127.0.0.1:27017/dev_db';
-}
-logger.log(uri);
+
 class DB {
     constructor() {
         this._connect()
     }
 
     _connect() {
-        mongoose.connect(uri, {useNewUrlParser: true}).then(() => {
+        mongoose.connect(config.uri, {useNewUrlParser: true}).then(() => {
             logger.info('Database connection is cool.');
         }).catch(err => {
             logger.error('Database connection is dead.');

@@ -16,7 +16,8 @@ const config = require("./config/db");
 const mongoose = require('mongoose');
 const passport = require('passport');
 const enforce = require('express-sslify');
-
+const helmet = require('helmet');
+const dbConfig = require('./config/db');
 const options = {
     key: fs.readFileSync(__dirname + '/crt/server.key'),
     cert:  fs.readFileSync(__dirname + '/crt/server.crt')
@@ -35,19 +36,14 @@ app.use(express.static(client));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 app.use(errorHandler);
+app.use(helmet());
 // app.use(enforce.HTTPS({ trustProtoHeader: true }));
-let uri;
-if(process.env.MODE === 'PROD') {
-    uri = process.env.MONGODB_URI;
-} else {
-    uri = 'mongodb://127.0.0.1:27017/dev_db';
-}
 let app_session = session({
     secret: config.secret,
     resave: true,
     saveUninitialized: false,
     store: new MongoSessionStore({
-        uri: uri,
+        uri: dbConfig.uri,
         collection: 'sessions'
     })
 });
