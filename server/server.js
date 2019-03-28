@@ -15,6 +15,7 @@ const fs = require('fs');
 const config = require("./config/db");
 const mongoose = require('mongoose');
 const passport = require('passport');
+const spdy = require('spdy');
 
 const options = {
     key: fs.readFileSync(__dirname + '/crt/server.key'),
