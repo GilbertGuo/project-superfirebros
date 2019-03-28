@@ -169,9 +169,9 @@ module.exports = {
                                     io.of('/spec').to(spec).emit('hitted', id);
                                 });
                                 if (players[id].team === 'yellow') {
-                                    scores.white += 100;
+                                    scores.white += 10;
                                 } else {
-                                    scores.yellow += 100;
+                                    scores.yellow += 10;
                                 }
                                 game.emit('updateScore', scores);
                                 spectators.forEach(function (spec) {
