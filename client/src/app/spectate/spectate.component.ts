@@ -3,7 +3,6 @@ import {ChatService} from '../chat.service';
 import {WebsocketService} from "../websocket.service";
 import {UserService} from "../_services/user.service";
 import {SpectateScene} from "./spectate";
-import {NgxAutoScroll} from "ngx-auto-scroll";
 
 @Component({
   selector: 'app-spectate',
@@ -14,11 +13,6 @@ import {NgxAutoScroll} from "ngx-auto-scroll";
 export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('phaser') phaser: ElementRef;
-  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
-
-  public forceScrollDown(): void {
-    this.ngxAutoScroll.forceScrollDown();
-  }
 
   title = 'phaser';
 
