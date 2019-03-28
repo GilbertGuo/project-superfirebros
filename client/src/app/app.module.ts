@@ -33,6 +33,7 @@ export function provideConfig() {
 
 import {ChatService} from "./chat.service";
 import {WebsocketService} from "./websocket.service";
+import {NgxAutoScrollModule} from "ngx-auto-scroll";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import {WebsocketService} from "./websocket.service";
     ReactiveFormsModule,
     BrowserAnimationsModule,
     SocialLoginModule,
+    NgxAutoScrollModule,
     ToastrModule.forRoot({
         timeOut: 5000,
         positionClass: 'toast-top-right',

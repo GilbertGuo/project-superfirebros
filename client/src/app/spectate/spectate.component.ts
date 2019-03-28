@@ -3,6 +3,7 @@ import {ChatService} from '../chat.service';
 import {WebsocketService} from "../websocket.service";
 import {UserService} from "../_services/user.service";
 import {SpectateScene} from "./spectate";
+import {NgxAutoScroll} from "ngx-auto-scroll";
 
 @Component({
   selector: 'app-spectate',
@@ -13,6 +14,11 @@ import {SpectateScene} from "./spectate";
 export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @ViewChild('phaser') phaser: ElementRef;
+  @ViewChild(NgxAutoScroll) ngxAutoScroll: NgxAutoScroll;
+
+  public forceScrollDown(): void {
+    this.ngxAutoScroll.forceScrollDown();
+  }
 
   title = 'phaser';
 
@@ -20,8 +26,8 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public readonly gameConfig: GameConfig = {
     type: Phaser.AUTO,
-    width: 1000,
-    height: 650,
+    width: 640,
+    height: 480,
     physics: {
       default: 'arcade',
       arcade: {
@@ -47,6 +53,10 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.chat.init();
     this.get_messages = this.socketService.messages;
+
+    this.chat.messages.subscribe(msg => {
+      console.log(msg);
+    });
 
     this.game = new Phaser.Game(this.gameConfig);
 
