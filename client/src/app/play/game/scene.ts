@@ -1,4 +1,5 @@
 import * as io from 'socket.io-client';
+import {__await} from "tslib";
 
 
 //https://stackoverflow.com/questions/37764665/typescript-sleep/50797405
@@ -13,6 +14,7 @@ export class GameScene extends Phaser.Scene {
   private cursors: Phaser.Input.Keyboard.CursorKeys;
   private whiteScoreText: Phaser.GameObjects.Text;
   private yellowScoreText: Phaser.GameObjects.Text;
+  private FinalWinTeam: Phaser.GameObjects.Text;
   coin: any;
   bro: any;
   private otherPlayer: any;
@@ -88,11 +90,19 @@ export class GameScene extends Phaser.Scene {
 
     this.whiteScoreText = this.add.text(16, 16, '', {fontsize: '30px', fontFamily: 'game_font', fill: '#FFFAFA'});
     this.yellowScoreText = this.add.text(300, 16, '', {fontsize: '30px', fontFamily: 'game_font', fill: '#FFFF00'});
+    this.FinalWinTeam = this.add.text(350, 300, '', {fontsize: '1000px', fontFamily: 'game_font', fill: '#EE0000'});
 
 
     this.socket.on('updateScore', function (scores) {
       self.whiteScoreText.setText('White: ' + scores.white);
       self.yellowScoreText.setText('Yellow: ' + scores.yellow);
+    });
+
+    this.socket.on('winTeam', function (winteam) {
+      self.FinalWinTeam.setText('Team '+ winteam[0] + ' Wins');
+      delay(1500).then(() => {
+        self.FinalWinTeam.setText(null);
+      })
     });
 
     this.socket.on('coin', function (coin, key) {

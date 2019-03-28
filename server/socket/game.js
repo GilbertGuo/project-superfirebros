@@ -11,6 +11,7 @@ module.exports = {
             x: 0,
             y: 0,
         };
+        let winteam = [];
         let scores = {
             white: 0,
             yellow: 0
@@ -168,9 +169,9 @@ module.exports = {
                                     io.of('/spec').to(spec).emit('hitted', id);
                                 });
                                 if (players[id].team === 'yellow') {
-                                    scores.white += 10;
+                                    scores.white += 100;
                                 } else {
-                                    scores.yellow += 10;
+                                    scores.yellow += 100;
                                 }
                                 game.emit('updateScore', scores);
                                 spectators.forEach(function (spec) {
@@ -187,7 +188,17 @@ module.exports = {
                 }
 
             }
+
             if (scores.yellow >= 2000 || scores.white >= 2000) {
+                if (scores.yellow >= 2000) {
+                    winteam[0] = 'yellow'
+                } else {
+                    winteam[0] = 'white'
+                }
+                game.emit('winTeam', winteam);
+                spectators.forEach(function (spec) {
+                    io.of('/spec').to(spec).emit('winTeam', winteam);
+                });
                 scores.yellow = 0;
                 scores.white = 0;
                 game.emit('updateScore', scores);
