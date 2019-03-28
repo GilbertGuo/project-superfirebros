@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
     } else {
       this.success = true;
       this.login();
+      this.loginForm.reset();
     }
   }
 

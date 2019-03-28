@@ -36,7 +36,7 @@ app.use(express.static(client));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 app.use(errorHandler);
-app.use(helmet());
+// app.use(helmet());
 // app.use(enforce.HTTPS({ trustProtoHeader: true }));
 let app_session = session({
     secret: config.secret,
