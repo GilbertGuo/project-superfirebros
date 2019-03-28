@@ -31,6 +31,9 @@ export function provideConfig() {
   return config;
 }
 
+import {ChatService} from "./chat.service";
+import {WebsocketService} from "./websocket.service";
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,9 @@ export function provideConfig() {
   providers: [
     {provide: AuthServiceConfig, useFactory: provideConfig},
     {provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    ChatService,
+    WebsocketService,
   ],
   bootstrap: [AppComponent]
 })

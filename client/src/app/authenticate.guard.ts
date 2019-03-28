@@ -1,8 +1,6 @@
 import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
-import {Observable} from 'rxjs';
 import {UserService} from "./_services/user.service";
-import {tap} from "rxjs/operators";
 import {ToastrService} from "ngx-toastr";
 
 @Injectable({
@@ -16,22 +14,14 @@ export class AuthenticateGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const currentUser = this.userService.currentUserValue;
-    if (currentUser || (this.userService.socialSignIn && this.userService.user)) {
+    if ((currentUser && this.userService.userProfile) || (this.userService.socialSignIn && this.userService.user && this.userService.userProfile)) {
       return true;
     } else {
-      this.toastr.warning("You idiot need to login first.");
+      this.toastr.warning("You need to login first.");
       this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
+      this.userService.logout();
       return false;
     }
-    // return this.userService.isLoggedin().pipe(tap((res) => {
-    //   if(res) {
-    //     return true;
-    //   } else {
-    //     this.toastr.warning("You idiot need to login first.");
-    //     this.router.navigate(['/login'], {queryParams: {returnUrl: state.url}});
-    //     return false;
-    //   }
-    // }));
   }
 
 }

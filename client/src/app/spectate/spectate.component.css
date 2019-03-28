@@ -1,0 +1,24 @@
+
+@font-face {
+  font-family: game_font;
+  src: url('../play/game/Press_Start_2P/PressStart2P-Regular.ttf');
+}
+
+#phaser canvas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  margin: auto;
+  margin-top: 50px;
+  padding: 0;
+}
+
+.nes-balloon{
+  max-width: 500px;
+}
+
+.chat-message {
+  display: flex;
+  flex-grow: 2;
+}
