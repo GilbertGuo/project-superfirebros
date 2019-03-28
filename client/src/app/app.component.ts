@@ -10,6 +10,6 @@ import {UtilityService} from "./utility.service";
 export class AppComponent {
   title = 'super-fire-bros';
 
-  constructor(private utility:UtilityService) {
+  constructor(public utility:UtilityService) {
   }
 }
