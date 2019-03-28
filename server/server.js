@@ -18,6 +18,9 @@ const passport = require('passport');
 const enforce = require('express-sslify');
 const helmet = require('helmet');
 const dbConfig = require('./config/db');
+
+const PORT = process.env.PORT || 9000;
+
 const options = {
     key: fs.readFileSync(__dirname + '/crt/server.key'),
     cert:  fs.readFileSync(__dirname + '/crt/server.crt')
@@ -25,8 +28,6 @@ const options = {
 
 let app = express();
 let server = https.createServer(options, app);
-
-const PORT = process.env.PORT || 9000;
 let client = path.join(__dirname, '../client/dist/super-fire-bros/');
 
 app.use(bodyParser.json());
@@ -36,8 +37,8 @@ app.use(express.static(client));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 app.use(errorHandler);
-// app.use(helmet());
-// app.use(enforce.HTTPS({ trustProtoHeader: true }));
+app.use(helmet());
+
 let app_session = session({
     secret: config.secret,
     resave: true,
