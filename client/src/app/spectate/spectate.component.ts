@@ -48,10 +48,6 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
     this.chat.init();
     this.get_messages = this.socketService.messages;
 
-    this.chat.messages.subscribe(msg => {
-      console.log(msg);
-    });
-
     this.game = new Phaser.Game(this.gameConfig);
 
   }
