@@ -69,7 +69,6 @@ export class LoginComponent implements OnInit {
       } else {
         this.authService.authState.subscribe((user) => {
           this.user = user;
-          console.log(user);
           this.loginStatus = (user != null);
         });
       }
