@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../_services/user.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {UtilityService} from "../../utility.service";
 
 @Component({
   selector: 'app-profile',
@@ -12,7 +13,7 @@ export class ProfileComponent implements OnInit {
   playerName: String;
   playerEmail: String;
 
-  constructor(private userService: UserService, private router:Router) {
+  constructor(private userService: UserService, private router:Router, public utility:UtilityService) {
   }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class ProfileComponent implements OnInit {
 
   logout() {
     this.userService.logout().subscribe((res) => {
+      this.utility.backHome();
       this.toHome();
     })
   }

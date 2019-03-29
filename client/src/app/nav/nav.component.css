@@ -1,3 +1,4 @@
+
 .container {
   display: flex;
   justify-items: center;
@@ -17,4 +18,16 @@
 .nes-container {
   max-height: 150px;
   padding: 1rem 1rem;
+}
+
+h3 {
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
+
+h3:focus {
+  text-decoration: none;
+  outline: none;
+  border: none;
 }

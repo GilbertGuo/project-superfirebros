@@ -33,20 +33,10 @@ router.post('/register', middleware.checkUsername, function (req, res, next) {
                 logger.error(err);
                 res.status(400).send({message: "Username already exist"});
             } else {
-                logger.info("new user registered: ", user);
                 res.json({success: true, msg: 'User registered'});
                 req.session.userId = user._id;
             }
         });
-
-        // debug info
-        User.find({username: req.body.username})
-            .then((data) => {
-                logger.info("saved new user:", data);
-            })
-            .catch((err) => {
-                logger.info(err);
-            });
     } else {
         let err = new Error("Require username and password, but one of them is missing");
         err.statusCode = 400;
@@ -55,13 +45,11 @@ router.post('/register', middleware.checkUsername, function (req, res, next) {
 });
 
 router.post('/', middleware.checkUsername, function (req, res, next) {
-    logger.info("user login : ", {username: req.body.username, password: req.body.password});
     User.findOne({username: req.body.username}, function (err, user) {
         if (err) return next(err);
         if (!user) {
             res.status(401).send({message: "User does not exist"});
         } else {
-            logger.info(user);
             user.comparePassword(req.body.password, function (err, pass) {
                 if (err) res.status(401).send({message: 'Password is wrong'});
                 if (!pass) res.status(401).send({message: 'Password is wrong'});
@@ -78,7 +66,6 @@ router.post('/', middleware.checkUsername, function (req, res, next) {
 
 router.get('/profile/', passport.authenticate('jwt', {session: true}), function (req, res, next) {
     let token = req.headers.authorization;
-    logger.info(req.headers);
     if (token) {
         User.findById(req.session.username).exec(function (err, user) {
             logger.info(user);
