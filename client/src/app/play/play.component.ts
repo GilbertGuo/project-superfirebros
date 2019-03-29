@@ -1,5 +1,6 @@
 import {Component, ViewChild, ElementRef, OnInit, OnDestroy, AfterViewInit} from '@angular/core';
 import {GameScene} from "./game/scene";
+import {UtilityService} from "../_services/utility.service";
 
 @Component({
   selector: 'app-play',
@@ -30,10 +31,11 @@ export class PlayComponent implements OnInit, OnDestroy, AfterViewInit {
   };
   private scene: GameScene;
 
-  constructor() {
+  constructor(private utility:UtilityService) {
   }
 
   ngOnInit(): void {
+    this.utility.leaveHome();
     this.game = new Phaser.Game(this.gameConfig);
   }
 

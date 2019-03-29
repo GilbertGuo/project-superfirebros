@@ -3,6 +3,7 @@ import {ChatService} from '../_services/chat.service';
 import {WebsocketService} from "../_services/websocket.service";
 import {UserService} from "../_services/user.service";
 import {SpectateScene} from "./spectate";
+import {UtilityService} from "../_services/utility.service";
 
 @Component({
   selector: 'app-spectate',
@@ -11,9 +12,8 @@ import {SpectateScene} from "./spectate";
 })
 
 export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
-
   @ViewChild('phaser') phaser: ElementRef;
-
+  msgText: string = "";
   title = 'phaser';
 
   game: Phaser.Game;
@@ -38,10 +38,14 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
   currentUser: any;
   get_messages: any;
 
-  constructor(private chat: ChatService, private socketService: WebsocketService, private userService: UserService) {
+  constructor(private chat: ChatService,
+              private socketService: WebsocketService,
+              private userService: UserService,
+              private utility: UtilityService) {
   }
 
   ngOnInit() {
+    this.utility.leaveHome();
     if (this.userService.userProfile.name) {
       this.currentUser = this.userService.userProfile.name;
     }
@@ -58,6 +62,7 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   sendMessage(message) {
     this.chat.sendMsg(message);
+    this.msgText ='';
   }
 
 

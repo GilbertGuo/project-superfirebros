@@ -16,11 +16,13 @@ require('../config/passport')(passport);
 
 router.post('/email/verification', async function (req, res, next) {
     let newToken;
+    User.find({email: req.body.email}, function (err, data) {
+        if(data.length !== 0) return res.status(400).send({message:"This email has been registered."});
+    });
     if (req.body.email) {
         newToken = new Token({
             email: req.body.email,
             token: verification.generateCode(),
-            createdAt: new Date()
         });
 
     } else {
@@ -43,7 +45,6 @@ router.post('/email/verification', async function (req, res, next) {
                     return res.status(400).send({message: "incorrect verification request, check your mailbox or email address"});
                 }
                 res.json({success: true});
-                newToken.collection.createIndex({"createdAt": 1}, {expireAfterSeconds: 300});
             })
         }
     });
@@ -55,7 +56,6 @@ router.post('/register', middleware.checkUsername, function (req, res, next) {
     logger.debug("received new user register info: ", {username: req.body.code, email: req.body.email, password: req.body.password});
     if (req.body.username && req.body.password && req.body.email && req.body.code) {
         Token.findOne({email: req.body.email}, function (err, token) {
-            logger.info(token.token);
             if (err) return next(err);
             if (!token) return res.status(401).send({message: "You need verification to register, click verify to get it."});
             if (token.token === req.body.code) {
@@ -67,7 +67,7 @@ router.post('/register', middleware.checkUsername, function (req, res, next) {
                 newUser.save(function (err, user) {
                     if (err) {
                         logger.error(err);
-                        return res.status(400).send({message: "Username already exist"});
+                        return res.status(400).send({message: "Username or email already exist"});
                     } else {
                         logger.info("new user registered: ", user);
                         return res.json({success: true, msg: 'User registered'});
