@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  type:any;
   submitted = false;
   success = false;
   readyToSubmit = false;
@@ -29,6 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(type: any) {
+    this.type = type;
     this.submitted = true;
 
     if (type === 'register') {
