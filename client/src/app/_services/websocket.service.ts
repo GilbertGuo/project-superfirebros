@@ -22,7 +22,6 @@ export class WebsocketService {
     this.socket = io('/chat');
     let observable = new Observable(observer => {
       this.socket.on('message', (data) => {
-        console.log("Received message from Websocket Server");
         this.messages.push(data.text);
         observer.next(data);
       });

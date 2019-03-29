@@ -43,8 +43,11 @@ export class UserService {
   }
 
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.socialSignIn = true;
+    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
+      if(user) {
+        this.socialSignIn = true;
+      }
+    });
     this.authService.authState.subscribe((user) => {
       this.user = user;
       if (user) {

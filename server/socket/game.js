@@ -28,12 +28,7 @@ module.exports = {
 
         let nsp = io.of('/chat');
         nsp.on("connection", socket => {
-            console.log("user connected");
-            socket.on("disconnect", function () {
-                console.log("user disconnected");
-            });
             socket.on("message", message => {
-                console.log("Message Received: " + message);
                 nsp.emit("message", {type: "new-message", text: message});
             });
         });
@@ -81,7 +76,6 @@ module.exports = {
             });
 
             if (connection == 1) {
-                logger.info(connection);
                 for (let i = 1; i < 6; i++) {
                     generateCoin();
                     let coin_x = coin.x;

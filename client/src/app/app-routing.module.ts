@@ -13,8 +13,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate:[AuthenticateGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'play', component: PlayComponent,canActivate:[AuthenticateGuard]},
-  {path: 'spectate', component:SpectateComponent,canActivate:[AuthenticateGuard]},
+  {path: 'play', component: PlayComponent, canActivate: [AuthenticateGuard]},
+  {path: 'spectate', component: SpectateComponent, canActivate: [AuthenticateGuard]},
   {path: 'register', component: RegisterComponent}
 ];
 
