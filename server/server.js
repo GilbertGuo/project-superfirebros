@@ -70,4 +70,3 @@ server.listen(PORT, (err) => {
         logger.info("HTTPS server on https://localhost:%s", PORT);
     }
 });
-

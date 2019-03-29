@@ -24,7 +24,6 @@ export class WebsocketService {
       this.socket.on('message', (data) => {
         console.log("Received message from Websocket Server");
         this.messages.push(data.text);
-        console.log(this.messages);
         observer.next(data);
       });
       return () => {

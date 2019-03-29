@@ -13,27 +13,42 @@ import {ToastrService} from "ngx-toastr";
 export class RegisterComponent implements OnInit {
   submitted = false;
   success = false;
+  readyToSubmit = false;
   registerForm: FormGroup;
 
   constructor(private userService: UserService, private formBuilder: FormBuilder, private toastr: ToastrService) {
     this.registerForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(3)]]
+      password: ['', [Validators.required, Validators.minLength(3)]],
+      code: ['', [Validators.required]]
     });
   }
 
   ngOnInit() {
   }
 
-  onSubmit() {
+  onSubmit(type: string) {
     this.submitted = true;
 
-    if (this.registerForm.invalid) {
-      return;
-    } else {
-      this.success = true;
-      this.register();
+    if (type === 'register') {
+      if (this.registerForm.invalid) {
+        return;
+      } else {
+        this.success = true;
+        this.register();
+      }
+    } else if (type === 'verify') {
+      let email = this.registerForm.controls.email.value;
+      this.readyToSubmit = (
+        this.registerForm.controls.password.valid
+        && this.registerForm.controls.email.valid
+        && this.registerForm.controls.username.valid
+      );
+      if (this.readyToSubmit) {
+        this.userService.verifyEmail(email).subscribe(() => {
+        });
+      }
     }
   }
 
@@ -42,12 +57,18 @@ export class RegisterComponent implements OnInit {
       let newUser = new User(
         this.registerForm.controls.username.value,
         this.registerForm.controls.password.value,
-        this.registerForm.controls.email.value
+        this.registerForm.controls.email.value,
+        this.registerForm.controls.code.value
       );
-      this.userService.register(newUser).subscribe(() => {
-        this.toastr.info("Registered successfully")
+      this.userService.register(newUser).subscribe((res) => {
+        this.toastr.success("Register successfully");
+
       });
     }
+  }
+
+  sendToken() {
+
   }
 
 }

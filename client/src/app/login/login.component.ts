@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
         let user = new User(
           this.loginForm.controls.username.value,
           this.loginForm.controls.password.value,
+          "",
           ""
         );
         this.userService.login(user).subscribe((res) => {
