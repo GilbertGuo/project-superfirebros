@@ -20,8 +20,8 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public readonly gameConfig: GameConfig = {
     type: Phaser.AUTO,
-    width: 640,
-    height: 480,
+    width: 1000,
+    height: 650,
     physics: {
       default: 'arcade',
       arcade: {
