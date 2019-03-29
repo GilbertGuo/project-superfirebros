@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(type: string) {
+  onSubmit(type: any) {
     this.submitted = true;
 
     if (type === 'register') {
