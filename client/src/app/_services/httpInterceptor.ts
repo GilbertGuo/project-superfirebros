@@ -24,11 +24,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
           msg = `${err.status}\n ${msg}`;
         }
         if (err.error instanceof ErrorEvent) {
-          // client-side error
           msg = `Error: ${msg}`;
         } else {
-          // server-side error
-          msg = `${err.status}\n ${msg}`;
+          msg = `${msg}`;
         }
         this.toastr.error(msg);
         return throwError(msg);

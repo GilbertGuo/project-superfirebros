@@ -14,8 +14,7 @@ let tokenSchema = new mongoose.Schema({
         },
     },
     token: String,
-    createdAt: Date
-
+    createdAt: { type: Date, expires: '10m', default: Date.now }
 });
 
 let Token = mongoose.model('Token', tokenSchema);
