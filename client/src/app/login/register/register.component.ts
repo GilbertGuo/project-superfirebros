@@ -30,9 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(type: any) {
-    this.type = type;
     this.submitted = true;
-
     if (type === 'register') {
       if (this.registerForm.invalid) {
         return;
