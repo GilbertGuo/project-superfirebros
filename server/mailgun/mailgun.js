@@ -11,7 +11,7 @@ module.exports = {
                 from: 'Superfirebros <superfirebros@gmail.com>',
                 to: email,
                 subject: 'SuperFireBros account register verification',
-                text: 'Your Verification Code is '+ token +'.',
+                text: 'Your Verification Code is '+ token + '. The Code will be expired in 5 minutes.',
             };
 
             mg.messages().send(data, (error) => {

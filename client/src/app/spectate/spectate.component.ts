@@ -1,6 +1,6 @@
 import {Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit} from '@angular/core';
-import {ChatService} from '../chat.service';
-import {WebsocketService} from "../websocket.service";
+import {ChatService} from '../_services/chat.service';
+import {WebsocketService} from "../_services/websocket.service";
 import {UserService} from "../_services/user.service";
 import {SpectateScene} from "./spectate";
 

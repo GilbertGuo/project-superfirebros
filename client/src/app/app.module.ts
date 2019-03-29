@@ -31,8 +31,8 @@ export function provideConfig() {
   return config;
 }
 
-import {ChatService} from "./chat.service";
-import {WebsocketService} from "./websocket.service";
+import {ChatService} from "./_services/chat.service";
+import {WebsocketService} from "./_services/websocket.service";
 
 @NgModule({
   declarations: [

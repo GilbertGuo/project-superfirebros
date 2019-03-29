@@ -20,6 +20,7 @@ router.post('/email/verification', async function (req, res, next) {
         newToken = new Token({
             email: req.body.email,
             token: verification.generateCode(),
+            createdAt: new Date()
         });
 
     } else {
@@ -42,6 +43,7 @@ router.post('/email/verification', async function (req, res, next) {
                     return res.status(400).send({message: "incorrect verification request, check your mailbox or email address"});
                 }
                 res.json({success: true});
+                newToken.collection.createIndex({"createdAt": 1}, {expireAfterSeconds: 300});
             })
         }
     });

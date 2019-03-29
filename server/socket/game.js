@@ -38,6 +38,25 @@ module.exports = {
             });
         });
 
+        let spec = io.of('/spec');
+        spec.on('connection', function (socket) {
+            if (connection === 0) {
+                scores.white = 0;
+                scores.yellow = 0;
+                coins.clear();
+                players = {};
+            } else {
+                Object.keys(coins).some(function (coin_key){
+                    socket.emit('coin', coins[coin_key], coin_key);
+                });
+            }
+            logger.info('new spectator connected: ', socket.id);
+            spectators.push(socket.id);
+            socket.emit('currentPlayers', players);
+            socket.emit('updateScore', scores);
+
+        });
+
         let game = io.of('/game');
         game.on('connection', function (socket) {
             logger.info('new player connected: ', socket.id);
@@ -45,6 +64,7 @@ module.exports = {
             if (connection === 0) {
                 scores.white = 0;
                 scores.yellow = 0;
+                coins.clear();
             }
             // new player joined
             connection++;
@@ -60,23 +80,10 @@ module.exports = {
                 io.of('/spec').to(spec).emit('currentPlayers', players);
             });
 
-            let spec = io.of('/spec');
-            spec.on('connection', function (socket) {
-                logger.info('new spectator connected: ', socket.id);
-                spectators.push(socket.id);
-                socket.emit('currentPlayers', players);
-                socket.emit('updateScore', scores);
-                Object.keys(coins).some(function (coin_key){
-                    socket.emit('coin', coins[coin_key], coin_key);
-                });
-
-            });
-
             if (connection == 1) {
                 logger.info(connection);
                 for (let i = 1; i < 6; i++) {
                     generateCoin();
-                    logger.info("current i coins: ", i, coin);
                     let coin_x = coin.x;
                     let coin_y = coin.y;
                     coins[i] = { x: coin_x, y: coin_y};
@@ -104,6 +111,17 @@ module.exports = {
                 logger.info('user disconnected: ', socket.id);
                 delete players[socket.id];
                 game.emit('disconnect', socket.id);
+                if (connection === 0) {
+                    scores.white = 0;
+                    scores.yellow = 0;
+                    coins.clear();
+                    players = {};
+                    spectators.forEach(function (spec) {
+                        io.of('/spec').to(spec).emit('currentPlayers', players);
+                        io.of('/spec').to(spec).emit('updateScore', scores);
+                    })
+                }
+
             });
 
             socket.on('move', function (movement) {

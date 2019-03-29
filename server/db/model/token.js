@@ -13,7 +13,9 @@ let tokenSchema = new mongoose.Schema({
             return validator.isEmail(value);
         },
     },
-    token: String
+    token: String,
+    createdAt: Date
+
 });
 
 let Token = mongoose.model('Token', tokenSchema);
