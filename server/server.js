@@ -1,7 +1,7 @@
 'use strict';
 const express = require('express');
 const session = require('express-session');
-const https = require('https');
+const https = require('http');
 const path = require('path');
 const bodyParser = require('body-parser');
 const env = require('dotenv').config();
@@ -15,7 +15,11 @@ const fs = require('fs');
 const config = require("./config/db");
 const mongoose = require('mongoose');
 const passport = require('passport');
-const spdy = require('spdy');
+const enforce = require('express-sslify');
+const helmet = require('helmet');
+const dbConfig = require('./config/db');
+
+const PORT = process.env.PORT || 9000;
 
 const options = {
     key: fs.readFileSync(__dirname + '/crt/server.key'),
@@ -24,8 +28,6 @@ const options = {
 
 let app = express();
 let server = https.createServer(options, app);
-
-const PORT = process.env.PORT;
 let client = path.join(__dirname, '../client/dist/super-fire-bros/');
 
 app.use(bodyParser.json());
@@ -33,16 +35,16 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(methodOverride());
 app.use(express.static(client));
 app.use(passport.initialize({}));
-app.use(passport.session());
+app.use(passport.session({}));
 app.use(errorHandler);
+app.use(helmet());
 
 let app_session = session({
     secret: config.secret,
     resave: true,
     saveUninitialized: false,
     store: new MongoSessionStore({
-        uri: `mongodb://${process.env.DB_SERVER}/${process.env.DB}`,
-        databaseName: process.env.DB,
+        uri: dbConfig.uri,
         collection: 'sessions'
     })
 });
@@ -70,4 +72,3 @@ server.listen(PORT, (err) => {
         logger.info("HTTPS server on https://localhost:%s", PORT);
     }
 });
-

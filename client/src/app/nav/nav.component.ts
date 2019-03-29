@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ToastrService} from "ngx-toastr";
-import {GameService} from "../_services/game.service";
+import {UtilityService} from "../_services/utility.service";
 
 @Component({
   selector: 'app-nav',
@@ -12,6 +12,6 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
-  constructor(private toastr: ToastrService, private gameService: GameService) {
+  constructor(private toastr: ToastrService, public utility:UtilityService) {
   }
 }

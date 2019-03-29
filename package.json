@@ -4,10 +4,12 @@
   "description": "a multi player game for cscc09 project",
   "main": "server/server.js",
   "scripts": {
-    "build": "cd client && ng build && cd ..",
+    "build": "cd client && npm i && npm i @angular-devkit/build-angular --dev && ng build --prod && cd ..",
+    "preinstall": "npm install -g @angular/cli @angular/compiler-cli typescript",
+    "dev-build-and-run": "cd client && ng build --prod=false && cd .. && nodemon server/server.js",
     "dev": "node server/server.js",
-    "dev-build-and-run": "cd client && ng build && cd .. &&nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +22,7 @@
   },
   "homepage": "https://github.com/UTSCC09/project-superfirebros#readme",
   "dependencies": {
+    "@angular/cli": "^7.3.6",
     "bcrypt": "^3.0.4",
     "body-parser": "^1.18.3",
     "connect-mongodb-session": "^2.1.1",
@@ -27,9 +30,11 @@
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "express-session": "^1.15.6",
+    "express-sslify": "^1.2.0",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^4.0.2",
+    "mailgun-js": "^0.22.0",
     "method-override": "^3.0.0",
     "mongodb": "^3.1.1",
     "mongoose": "^5.4.16",
