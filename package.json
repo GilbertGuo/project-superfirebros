@@ -10,8 +10,6 @@
     "dev": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server/server.js"
-    "dev-build-and-run": "cd client && ng build && cd .. &&nodemon server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
