@@ -44,8 +44,7 @@ export class SpectateScene extends Phaser.Scene {
       2: undefined,
       3: undefined,
       4: undefined,
-      5: undefined,
-      6: undefined
+      5: undefined
     };
 
     if (!this.socket) {
@@ -54,13 +53,15 @@ export class SpectateScene extends Phaser.Scene {
     this.otherPlayers = this.physics.add.group();
 
     this.socket.on('currentPlayers', function (players) {
-      Object.keys(players).forEach(function (id) {
-        if (players[id].playerId === self.socket.id) {
-          // self.addPlayer(players[id]);
-        } else {
+      if (players != {}){
+        Object.keys(players).forEach(function (id) {
           self.addOtherPlayers(players[id]);
-        }
-      });
+        });
+      } else {
+        self.otherPlayers.getChildren().forEach(function (otherPlayer) {
+          otherPlayer.destroy();
+        });
+      }
     });
 
     this.socket.on('newPlayer', function (playerInfo) {

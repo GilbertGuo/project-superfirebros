@@ -66,7 +66,7 @@ export class UserService {
   verifyEmail(email) {
     return this.http.post<any>(`${this.url}/users/email/verification`, {email: email}, {}).pipe(map(res => {
       if(res.success) {
-        this.toastr.success("verification code should be in your mailbox, check it now");
+        this.toastr.success("verification code is sent, the code will be expired in 5 minutes");
       } else {
         this.toastr.error(res.msg);
       }
