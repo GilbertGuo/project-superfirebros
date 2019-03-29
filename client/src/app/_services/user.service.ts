@@ -63,6 +63,16 @@ export class UserService {
     return this.http.post(`${this.url}/users/register`, user, {}).pipe(tap());
   }
 
+  verifyEmail(email) {
+    return this.http.post<any>(`${this.url}/users/email/verification`, {email: email}, {}).pipe(map(res => {
+      if(res.success) {
+        this.toastr.success("verification code is sent, the code will be expired in 5 minutes");
+      } else {
+        this.toastr.error(res.msg);
+      }
+    }));
+  }
+
   // https://stackoverflow.com/questions/54888671/angular-6-wait-for-subscribe-to-finish
   logout(): Observable<any> {
     if (!this.socialSignIn) {

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../_services/user.service";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
-import {UtilityService} from "../../utility.service";
+import {UtilityService} from "../../_services/utility.service";
 
 @Component({
   selector: 'app-profile',
@@ -13,10 +13,13 @@ export class ProfileComponent implements OnInit {
   playerName: String;
   playerEmail: String;
 
-  constructor(private userService: UserService, private router:Router, public utility:UtilityService) {
+  constructor(private userService: UserService,
+              private router:Router,
+              public utility:UtilityService) {
   }
 
   ngOnInit() {
+    this.utility.leaveHome();
     let profile = this.userService.getProfile().subscribe((profile) => {
       if(profile && profile.name && profile.email) {
         this.playerName = profile.name;

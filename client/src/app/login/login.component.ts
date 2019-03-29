@@ -5,6 +5,7 @@ import {User} from "../user.model";
 import {Router} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {AuthService} from "angularx-social-login";
+import {UtilityService} from "../_services/utility.service";
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,8 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router,
               private toastr: ToastrService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private utility:UtilityService) {
     this.loginForm = this.formBuilder.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.utility.leaveHome();
     this.toProfile();
   }
 
@@ -56,6 +59,7 @@ export class LoginComponent implements OnInit {
         let user = new User(
           this.loginForm.controls.username.value,
           this.loginForm.controls.password.value,
+          "",
           ""
         );
         this.userService.login(user).subscribe((res) => {

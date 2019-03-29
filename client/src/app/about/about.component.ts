@@ -1,4 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {UtilityService} from "../_services/utility.service";
 
 
 @Component({
@@ -8,8 +9,13 @@ import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from
 })
 export class AboutComponent implements OnInit{
 
+
+  constructor(private utility:UtilityService){}
+
   ngOnInit(): void {
+    this.utility.leaveHome();
   }
+
 
 
 }

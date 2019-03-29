@@ -1,5 +1,5 @@
 <div class="container">
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="nes-container is-rounded with-title">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit(type)" class="nes-container is-rounded with-title">
     <p class="title">Register</p>
     <div class="container2">
 
@@ -46,7 +46,18 @@
           Password is too short.
         </div>
       </div>
-      <button type="submit" class="nes-btn is-primary">Register</button>
+
+      <div class="nes-field is-inline">
+        <label for="warning_field">code</label>
+        <input formControlName="code" type="text" id="code" class="nes-input is-warning" placeholder="verification code">
+      </div>
+      <div *ngIf="submitted && (registerForm.controls.password.errors || registerForm.controls.email.errors || registerForm.controls.username.errors)" class="error">
+        <div *ngIf="registerForm.controls.code.errors.required" class="error">
+          Email verification is required.
+        </div>
+      </div>
+      <button type="button" class="nes-btn is-primary" (click)="onSubmit('verify')">Verify</button>
+      <button type="submit" (click)="onSubmit('register')" class="nes-btn is-primary">Register</button>
     </div>
   </form>
 </div>
