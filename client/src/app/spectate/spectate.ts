@@ -53,7 +53,7 @@ export class SpectateScene extends Phaser.Scene {
     this.otherPlayers = this.physics.add.group();
 
     this.socket.on('currentPlayers', function (players) {
-      if (players != {}){
+      if (Object.keys(players).length != 0){
         Object.keys(players).forEach(function (id) {
           self.addOtherPlayers(players[id]);
         });
@@ -107,10 +107,12 @@ export class SpectateScene extends Phaser.Scene {
 
     this.socket.on('coin', function (coin, key) {
       if (self.coin[key]) self.coin[key].destroy();
+      if (coin == 6){
+        for (let i = 1; i < 6 + 1; i++) {
+          self.coin[i].destroy();
+        }
+      }
       self.coin[key] = self.physics.add.image(coin.x, coin.y, 'coin').setDisplaySize(30, 30);
-      // self.physics.add.overlap(self.otherPlayers, self.coin[key], function () {
-      //   self.socket.emit('collectCoin', key);
-      // }, null, self);
     });
 
     this.socket.on('renderBullets', function (update_b) {
