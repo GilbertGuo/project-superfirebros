@@ -43,7 +43,7 @@ import {NgxAutoScrollModule} from "ngx-auto-scroll";
     PlayComponent,
     SpectateComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
     FormsModule,

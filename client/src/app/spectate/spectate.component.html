@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="new-chat nes-field">
-      <input type="text" class="nes-input" [(ngModel)]="msgText"  #titleInput id="message"/>
+      <input type="text"  class="nes-input" [(ngModel)]="msgText"  #titleInput id="message"/>
       <button type="button" class="nes-btn is-primary" (click)="sendMessage('>' +this.currentUser+': '+titleInput.value)">
         Send
       </button>

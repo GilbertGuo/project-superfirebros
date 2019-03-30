@@ -24,7 +24,6 @@ router.post('/email/verification', async function (req, res, next) {
             email: req.body.email,
             token: verification.generateCode(),
         });
-
     } else {
         return res.status(400).send({message: "Bad request"});
     }
