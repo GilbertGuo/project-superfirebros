@@ -27,6 +27,7 @@
     "core-js": "^2.5.4",
     "html-loader": "~0.5",
     "nes.css": "^2.0.0",
+    "ng-knife": "^0.2.5",
     "ngx-auto-scroll": "^1.1.0",
     "ngx-socket-io": "^2.1.1",
     "ngx-toastr": "^9.1.2",

@@ -14,15 +14,21 @@
     <div class="window">
       <div class="overflow" ngx-auto-scroll>
         <div class="nes-list is-disc" *ngFor="let message of this.get_messages">
-          <li class="chat">{{ message.slice(1,-1) }}</li>
+          <li class="chat">{{ message.slice(1, -1) }}</li>
         </div>
       </div>
     </div>
     <div class="new-chat nes-field">
-      <input type="text"  class="nes-input" [(ngModel)]="msgText"  #titleInput id="message"/>
-      <button type="button" class="nes-btn is-primary" (click)="sendMessage('>' +this.currentUser+': '+titleInput.value)">
-        Send
-      </button>
+      <form class="user-input-area">
+        <label for="message"></label>
+        <textarea type="text" wrap="hard" rows="1" style="resize: none;" class="nes-input" [(ngModel)]="msgText"
+                  #titleInput
+                  id="message"></textarea>
+        <button type="submit" class="nes-btn is-primary"
+                (click)="sendMessage('>' +this.currentUser+': '+titleInput.value)">
+          Send
+        </button>
+      </form>
     </div>
   </div>
 </div>

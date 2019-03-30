@@ -4,7 +4,7 @@
     <div class="container2">
       <div class="nes-field is-inline">
         <label for="inline_field">username</label>
-        <input formControlName="username" type="text" id="inline_field" class="nes-input is-success"
+        <input knifeAlphanumeric formControlName="username" type="text" id="inline_field" class="nes-input is-success"
                placeholder="player name">
       </div>
       <div *ngIf="submitted && loginForm.controls.username.errors" class="error">
@@ -14,7 +14,7 @@
       </div>
       <div class="nes-field is-inline">
         <label for="warning_field">password</label>
-        <input formControlName="password" type="password" id="warning_field" class="nes-input is-warning"
+        <input  knifeAlphanumeric formControlName="password" type="password" id="warning_field" class="nes-input is-warning"
                placeholder="player password">
       </div>
       <div *ngIf="submitted && loginForm.controls.password.errors" class="error">
