@@ -16,17 +16,20 @@ require('../config/passport')(passport);
 
 router.post('/email/verification', async function (req, res, next) {
     let newToken;
-    User.find({email: req.body.email}, function (err, data) {
+    let reqEmail;
+    if (req.body.email) {
+        reqEmail = req.body.email.toLowerCase();
+    } else {
+        return res.status(400).send({message: "Bad request: something is missing"});
+    }
+
+    User.find({email: reqEmail}, function (err, data) {
         if (data.length !== 0) return res.status(400).send({message: "This email has been registered."});
     });
-    if (req.body.email) {
-        newToken = new Token({
-            email: req.body.email,
-            token: verification.generateCode(),
-        });
-    } else {
-        return res.status(400).send({message: "Bad request"});
-    }
+    newToken = new Token({
+        email: reqEmail,
+        token: verification.generateCode(),
+    });
 
     let error = false;
     Token.find({email: req.body.email}, async function (err, data) {
