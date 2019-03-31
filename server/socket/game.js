@@ -53,6 +53,12 @@ module.exports = {
             spectators.push(socket.id);
             socket.emit('currentPlayers', players);
 
+            socket.on('disconnect', function () {
+                spectators = spectators.filter(function(spectator){
+                    return spectator !== socket.id;
+                })
+            })
+
         });
 
         let game = io.of('/game');
