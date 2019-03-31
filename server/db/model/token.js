@@ -1,4 +1,5 @@
 'use strict';
+
 let validator = require('validator');
 
 let mongoose = require('mongoose');
@@ -14,7 +15,7 @@ let tokenSchema = new mongoose.Schema({
         },
     },
     token: String,
-    createdAt: { type: Date, expires: '10m', default: Date.now }
+    createdAt: {type: Date, expires: '10m', default: Date.now}
 });
 
 let Token = mongoose.model('Token', tokenSchema);

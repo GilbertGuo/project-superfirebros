@@ -17,7 +17,7 @@ require('../config/passport')(passport);
 router.post('/email/verification', async function (req, res, next) {
     let newToken;
     User.find({email: req.body.email}, function (err, data) {
-        if(data.length !== 0) return res.status(400).send({message:"This email has been registered."});
+        if (data.length !== 0) return res.status(400).send({message: "This email has been registered."});
     });
     if (req.body.email) {
         newToken = new Token({
@@ -52,7 +52,11 @@ router.post('/email/verification', async function (req, res, next) {
 
 /*https://medium.com/@yugagrawal95/mongoose-mongodb-functions-for-crud-application-1f54d74f1b34*/
 router.post('/register', middleware.checkUsername, function (req, res, next) {
-    logger.debug("received new user register info: ", {username: req.body.code, email: req.body.email, password: req.body.password});
+    logger.debug("received new user register info: ", {
+        username: req.body.code,
+        email: req.body.email,
+        password: req.body.password
+    });
     if (req.body.username && req.body.password && req.body.email && req.body.code) {
         Token.findOne({email: req.body.email}, function (err, token) {
             if (err) return next(err);
