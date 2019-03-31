@@ -113,8 +113,9 @@ export class SpectateScene extends Phaser.Scene {
             self.coin[i].destroy();
           }
         }
+      } else {
+        self.coin[key] = self.physics.add.image(coin.x, coin.y, 'coin').setDisplaySize(30, 30);
       }
-      self.coin[key] = self.physics.add.image(coin.x, coin.y, 'coin').setDisplaySize(30, 30);
     });
 
     this.socket.on('renderBullets', function (update_b) {

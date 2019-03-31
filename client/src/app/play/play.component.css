@@ -13,7 +13,7 @@ body {
 
 body #phaser {
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 0;
 }
 
@@ -23,6 +23,6 @@ body #phaser {
   align-items: center;
   justify-items: center;
   margin: auto;
-  margin-top: 50px;
+  margin-top: 20px;
   padding: 0;
 }
