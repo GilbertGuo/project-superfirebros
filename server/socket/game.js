@@ -29,7 +29,7 @@ module.exports = {
         let nsp = io.of('/chat');
         nsp.on("connection", socket => {
             socket.on("message", message => {
-                let msg = message.replace(/(\r\n|\n|\r)/gm, " ");
+                let msg = message.replace(/(\r\n|\n|\r)/g, " ");
                 nsp.emit("message", {type: "new-message", text: msg});
             });
         });
