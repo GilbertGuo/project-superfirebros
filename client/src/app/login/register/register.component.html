@@ -11,10 +11,10 @@
       </div>
       <div *ngIf="submitted && registerForm.controls.username.errors" class="error">
         <div *ngIf="registerForm.controls.username.errors.required" class="error">
-          Username is required.
+          Username is required
         </div>
         <div *ngIf="registerForm.controls.password.errors.minlength" class="error">
-          Username is too short.
+          Username is too short(at least 6 characters)
         </div>
       </div>
 
@@ -43,7 +43,7 @@
           Passowrd is required.
         </div>
         <div *ngIf="registerForm.controls.password.errors.minlength" class="error">
-          Password is too short.
+          Password is too short(at least 6 characters)
         </div>
       </div>
 
