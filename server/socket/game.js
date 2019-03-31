@@ -41,15 +41,17 @@ module.exports = {
                 scores.yellow = 0;
                 coins.clear();
                 players = {};
+                socket.emit('coin', 6, { x:0, y:0});
+                socket.emit('updateScore', scores);
             } else {
                 Object.keys(coins).some(function (coin_key){
                     socket.emit('coin', coins[coin_key], coin_key);
                 });
+                socket.emit('updateScore', scores);
             }
             logger.info('new spectator connected: ', socket.id);
             spectators.push(socket.id);
             socket.emit('currentPlayers', players);
-            socket.emit('updateScore', scores);
 
         });
 
@@ -103,19 +105,20 @@ module.exports = {
             });
             socket.on('disconnect', function () {
                 connection--;
-                logger.info('user disconnected: ', socket.id);
-                delete players[socket.id];
-                game.emit('disconnect', socket.id);
                 if (connection === 0) {
                     scores.white = 0;
                     scores.yellow = 0;
                     coins.clear();
-                    players = {};
+                    let empty = {};
                     spectators.forEach(function (spec) {
-                        io.of('/spec').to(spec).emit('currentPlayers', players);
+                        io.of('/spec').to(spec).emit('currentPlayers', empty);
                         io.of('/spec').to(spec).emit('updateScore', scores);
+                        io.of('/spec').to(spec).emit('coin', 6, { x:0, y:0});
                     })
                 }
+                logger.info('user disconnected: ', socket.id);
+                delete players[socket.id];
+                game.emit('disconnect', socket.id);
 
             });
 
