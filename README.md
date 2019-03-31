@@ -1,6 +1,6 @@
 # SuperFireBros
 
-###App url 
+### App url 
 https://www.superfirebros.com or https://super-fire-bros.herokuapp.com
 
 ### Api Documentation
@@ -13,7 +13,7 @@ Yiling(Samuel) Zhu, Yiwei(Gilbert) Guo, YongLi(Kyle) Liang
 <br></br>
 ## Description
 
-#####A multiplayer game that allows more than 2 player join and play, players will be divided into two team, the first team scored 2000 will win the game
+##### A multiplayer game that allows more than 2 player join and play, players will be divided into two team, the first team scored 2000 will win the game
  
 ## Details
 - Every player will be able to shot with fire.
