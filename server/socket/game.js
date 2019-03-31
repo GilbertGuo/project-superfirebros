@@ -86,9 +86,7 @@ module.exports = {
                     coins[i] = { x: coin_x, y: coin_y};
                     socket.emit('coin', coin, i);
                     spectators.forEach(function (spec) {
-                        coins.forEach(function (coin) {
-                            socket.to(spec).emit('coin', coin, i);
-                        })
+                        io.of('/spec').to(spec).emit('coin', coin, i);
 
                     });
                 }

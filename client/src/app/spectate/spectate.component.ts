@@ -69,7 +69,6 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.socketService.disconnet();
-
     this.scene.socket.disconnect();
     this.game.destroy(true);
   }
