@@ -20,7 +20,7 @@
 
       <div class="nes-field is-inline">
         <label for="email_field">email</label>
-        <input knifeNoSpaces formControlName="email" type="email" id="email_field" class="nes-input is-success"
+        <input knifeNoSpaces oninput="this.value = this.value.toLowerCase()" formControlName="email" type="email" id="email_field" class="nes-input is-success"
                placeholder="player email">
       </div>
       <div *ngIf="submitted && registerForm.controls.email.errors" class="error">
