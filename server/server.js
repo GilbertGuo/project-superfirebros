@@ -13,9 +13,7 @@ const methodOverride = require('method-override');
 const errorHandler = require('../common-lib/errorHandler');
 const fs = require('fs');
 const config = require("./config/db");
-const mongoose = require('mongoose');
 const passport = require('passport');
-const enforce = require('express-sslify');
 const helmet = require('helmet');
 const dbConfig = require('./config/db');
 
@@ -37,6 +35,17 @@ app.use(express.static(client));
 app.use(passport.initialize({}));
 app.use(passport.session({}));
 app.use(errorHandler);
+
+// WHAT IS HELMET DOING:
+// csp sets the Content-Security-Policy header to help prevent cross-site scripting attacks and other cross-site injections.
+// removes the X-Powered-By header.
+// hpkp Adds Public Key Pinning headers to prevent man-in-the-middle attacks with forged certificates.
+// hsts sets Strict-Transport-Security header that enforces secure (HTTP over SSL/TLS) connections to the server.
+// ieNoOpen sets X-Download-Options for IE8+.
+// noCache sets Cache-Control and Pragma headers to disable client-side caching.
+// noSniff sets X-Content-Type-Options to prevent browsers from MIME-sniffing a response away from the declared content-type.
+// frameguard sets the X-Frame-Options header to provide clickjacking protection.
+// xssFilter sets X-XSS-Protection to enable the Cross-site scripting (XSS) filter in most recent web browsers.
 app.use(helmet());
 
 let app_session = session({

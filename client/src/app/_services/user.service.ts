@@ -26,8 +26,14 @@ export class UserService {
               private toastr: ToastrService,
               private authService: AuthService,
               private router: Router) {
-    this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+    let userSession = JSON.parse(localStorage.getItem('currentUser'));
+    this.currentUserSubject = new BehaviorSubject<User>(userSession);
     this.currentUser = this.currentUserSubject.asObservable();
+    if (userSession) {
+      if (userSession.email && userSession.name) {
+        this.setProfile({email: userSession.email, name: userSession.name});
+      }
+    }
   }
 
   public get currentUserValue(): User {
@@ -44,7 +50,7 @@ export class UserService {
 
   signInWithGoogle(): void {
     this.authService.signIn(GoogleLoginProvider.PROVIDER_ID).then((user) => {
-      if(user) {
+      if (user) {
         this.socialSignIn = true;
       }
     });
@@ -65,7 +71,7 @@ export class UserService {
 
   verifyEmail(email) {
     return this.http.post<any>(`${this.url}/users/email/verification`, {email: email}, {}).pipe(map(res => {
-      if(res.success) {
+      if (res.success) {
         this.toastr.success("verification code is sent, the code will be expired in 5 minutes");
       } else {
         this.toastr.error(res.msg);
@@ -96,8 +102,8 @@ export class UserService {
   login(user: User) {
     return this.http.post<any>(`${this.url}/users/`, user, {}).pipe(map(res => {
       if (res.success && res.token) {
-        this.currentUserSubject.next(res);
         localStorage.setItem('currentUser', JSON.stringify(res));
+        this.currentUserSubject.next(res);
       }
       return res;
     }));
