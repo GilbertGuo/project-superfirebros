@@ -11,6 +11,9 @@ import {Router} from "@angular/router";
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  password:any;
+  username:any;
+  email:any;
   type:any;
   submitted = false;
   success = false;

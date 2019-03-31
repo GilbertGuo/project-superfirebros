@@ -33,6 +33,7 @@ export function provideConfig() {
 import {ChatService} from "./_services/chat.service";
 import {WebsocketService} from "./_services/websocket.service";
 import {NgxAutoScrollModule} from "ngx-auto-scroll";
+import {NgKnifeModule} from "ng-knife";
 
 @NgModule({
   declarations: [
@@ -43,9 +44,10 @@ import {NgxAutoScrollModule} from "ngx-auto-scroll";
     PlayComponent,
     SpectateComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
   ],
   imports: [
+    NgKnifeModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,

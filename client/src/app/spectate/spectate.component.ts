@@ -61,7 +61,8 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   sendMessage(message) {
-    this.chat.sendMsg(message);
+    let msg = message.replace(/(\r\n|\n|\r)/g, " ");
+    this.chat.sendMsg(msg);
     this.msgText ='';
   }
 

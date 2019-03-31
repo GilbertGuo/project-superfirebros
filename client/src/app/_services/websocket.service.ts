@@ -1,11 +1,9 @@
 import {Injectable} from '@angular/core';
 import * as io from 'socket.io-client';
 import {Observable, Subject} from "rxjs";
-import {Message} from "@angular/compiler/src/i18n/i18n_ast";
-
-// import { environment } from "../environments/environment";
 
 
+// https://tutorialedge.net/typescript/angular/angular-socket-io-tutorial/
 @Injectable({
   providedIn: 'root'
 })
