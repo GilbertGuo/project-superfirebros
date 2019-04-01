@@ -1,7 +1,9 @@
 # SuperFireBros
 
+
 ### App url 
 https://www.superfirebros.com or https://super-fire-bros.herokuapp.com
+##### note: when register, the verification code maybe in your trash mailbox if you are using gmail.
 
 ### Api Documentation
 https://samuel-zhu.github.io/slate/#introduction
