@@ -21,12 +21,13 @@
     <div class="new-chat nes-field">
       <form class="user-input-area">
         <label for="message"></label>
-        <textarea type="text" wrap="hard" rows="1" style="resize: none;" class="nes-input" [(ngModel)]="msgText"
-                  [ngModelOptions]="{standalone: true}"
+        <input type="text" style="resize: none;"
+                  class="nes-textarea"
                   #titleInput
-                  id="message"></textarea>
+               placeholder="plz use enter as space"
+                  id="message">
         <button type="submit" class="nes-btn is-primary"
-                (click)="sendMessage('>' +this.currentUser+': '+titleInput.value)">
+                (click)="sendMessage('>' +this.currentUser+': '+titleInput.value); titleInput.value='';">
           Send
         </button>
       </form>

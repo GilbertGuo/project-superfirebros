@@ -13,7 +13,6 @@ import {UtilityService} from "../_services/utility.service";
 
 export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('phaser') phaser: ElementRef;
-  msgText: string = "";
   title = 'phaser';
 
   game: Phaser.Game;
@@ -62,7 +61,6 @@ export class SpectateComponent implements OnInit, OnDestroy, AfterViewInit {
   sendMessage(message) {
     let msg = message.replace(/(\r\n|\n|\r)/g, " ");
     this.chat.sendMsg(msg);
-    this.msgText ='';
   }
 
 

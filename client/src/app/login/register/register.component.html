@@ -51,7 +51,7 @@
         <label for="warning_field">code</label>
         <input  knifeAlphanumeric knifeNoSpaces formControlName="code" type="text" id="code" class="nes-input is-warning" placeholder="verification code">
       </div>
-      <div *ngIf="submitted && (registerForm.controls.password.errors || registerForm.controls.email.errors || registerForm.controls.username.errors)" class="error">
+      <div *ngIf="submitted && registerForm.controls.code.errors" class="error">
         <div *ngIf="registerForm.controls.code.errors.required" class="error">
           Email verification is required.
         </div>
