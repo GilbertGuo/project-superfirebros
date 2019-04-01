@@ -21,10 +21,10 @@
     <div class="new-chat nes-field">
       <form class="user-input-area">
         <label for="message"></label>
-        <input type="text" style="resize: none;"
+        <textarea type="text" style="resize: none;"
                   class="nes-textarea"
                   #titleInput
-               placeholder="plz use enter as space"
+                  placeholder="use enter as space"
                   id="message">
         <button type="submit" class="nes-btn is-primary"
                 (click)="sendMessage('>' +this.currentUser+': '+titleInput.value); titleInput.value='';">
