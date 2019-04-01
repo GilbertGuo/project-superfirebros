@@ -46,7 +46,19 @@ app.use(errorHandler);
 // noSniff sets X-Content-Type-Options to prevent browsers from MIME-sniffing a response away from the declared content-type.
 // frameguard sets the X-Frame-Options header to provide clickjacking protection.
 // xssFilter sets X-XSS-Protection to enable the Cross-site scripting (XSS) filter in most recent web browsers.
+const sixtyDaysInSeconds = 5184000;
 app.use(helmet());
+app.use(helmet.frameguard({ action: 'deny' }));
+app.use(helmet.xssFilter());
+app.use(helmet.hsts({
+    maxAge: sixtyDaysInSeconds
+}));
+app.use(helmet.contentSecurityPolicy({
+    directives: {
+        defaultSrc: ["'self'"],
+        styleSrc: ["'self'", 'maxcdn.bootstrapcdn.com']
+    }
+}));
 
 let app_session = session({
     secret: config.secret,
