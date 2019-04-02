@@ -15,9 +15,9 @@ https://samuel-zhu.github.io/slate/#introduction
 Yiling(Samuel) Zhu, Yiwei(Gilbert) Guo, YongLi(Kyle) Liang  
 
 ### LOCAL DEV BUILD AND RUN
-1.change MODE variable in .env file to DEV
-2.do `npm install` in root and client folder (if there is error, remove preinstall script in root package.json, and mannually run it)
-3.run `npm run dev-build-and-run`(default to use nodemon to run the server)
+* 1.change MODE variable in .env file to DEV
+* 2.do `npm install` in root and client folder (if there is error, remove preinstall script in root package.json, and mannually run it)
+* 3.run `npm run dev-build-and-run`(default to use nodemon to run the server)
 
 <br></br>
 ## Description
